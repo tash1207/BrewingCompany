@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] Animator animator;
     [SerializeField] PlayerInventory playerInventory;
 
     private Rigidbody2D rb2d;
@@ -31,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
         {
             lookDirection.Set(moveInput.x, moveInput.y);
             lookDirection.Normalize();
+
+            animator.SetFloat("LookX", lookDirection.x);
+            animator.SetFloat("LookY", lookDirection.y);
         }
     }
 
