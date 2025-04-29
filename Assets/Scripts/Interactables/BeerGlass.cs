@@ -18,4 +18,10 @@ public class BeerGlass : MonoBehaviour
                 Mathf.Clamp(beerFill.size.y - (beerDepletionRate / 100 * Time.deltaTime), 0, 1));
         }
     }
+
+    public void PickUp()
+    {
+        // TODO: Look into object pooling.
+        Destroy(gameObject);
+    }
 }
