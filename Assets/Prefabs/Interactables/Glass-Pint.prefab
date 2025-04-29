@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3438981831334084600}
   m_Father: {fileID: 0}
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beerFill: {fileID: 739969542798363980}
-  beerDepletionRate: 10
-  beerAmountDeemedEmpty: 0.35
+  beerDepletionRate: 13
+  beerAmountDeemedEmpty: 0.15
 --- !u!210 &637746287105579668
 SortingGroup:
   m_ObjectHideFlags: 0

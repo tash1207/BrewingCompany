@@ -19,9 +19,18 @@ public class BeerGlass : MonoBehaviour
         }
     }
 
-    public void PickUp()
+    public bool PickUp()
     {
-        // TODO: Look into object pooling.
-        Destroy(gameObject);
+        if (beerFill.size.y > beerAmountDeemedEmpty)
+        {
+            Debug.Log("Beer not empty yet");
+            return false;
+        }
+        else
+        {
+            // TODO: Look into object pooling.
+            Destroy(gameObject);
+            return true;
+        }
     }
 }

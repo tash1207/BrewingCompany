@@ -8,8 +8,10 @@ public class PlayerInventory : MonoBehaviour
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
         {
-            ChangeGlasses(1);
-            beerGlass.PickUp();
+            if (beerGlass.PickUp())
+            {
+                ChangeGlasses(1);
+            }
         }
     }
     
