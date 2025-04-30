@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject storyModeDialog;
     [SerializeField] GameObject scoreModeDialog;
+    [SerializeField] GameObject mobileControls;
 
     public Action OnChooseGreenShirt;
     public Action OnChooseYellowShirt;
@@ -52,6 +53,10 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
+        if (SettingsManager.Instance.GetMobileSetting())
+        {
+            mobileControls.SetActive(true);
+        }
         // Unpause game, set player active, start timer.
         player.SetActive(true);
         Time.timeScale = 1;
