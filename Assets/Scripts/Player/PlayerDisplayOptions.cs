@@ -7,18 +7,17 @@ public class PlayerDisplayOptions : MonoBehaviour
     [SerializeField] SpriteLibraryAsset greenShirt;
     [SerializeField] SpriteLibraryAsset yellowShirt;
 
-    void OnEnable()
+    void Awake()
     {
         LevelManager.Instance.OnChooseGreenShirt += WearGreenShirt;
         LevelManager.Instance.OnChooseYellowShirt += WearYellowShirt;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         LevelManager.Instance.OnChooseGreenShirt -= WearGreenShirt;
         LevelManager.Instance.OnChooseYellowShirt -= WearYellowShirt;
     }
-
 
     private void WearGreenShirt()
     {
