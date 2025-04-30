@@ -1,10 +1,27 @@
+using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance { get; private set; }
+
     [SerializeField] GameObject player;
     [SerializeField] GameObject storyModeDialog;
     [SerializeField] GameObject scoreModeDialog;
+
+    public Action OnChooseGreenShirt;
+    public Action OnChooseYellowShirt;
+
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     void Start()
     {
@@ -23,9 +40,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void ChooseShirt()
+    public void ChooseGreenShirt()
     {
-        // TODO: Implement.
+        OnChooseGreenShirt?.Invoke();
+    }
+
+    public void ChooseYellowShirt()
+    {
+        OnChooseYellowShirt?.Invoke();
     }
 
     public void StartLevel()
