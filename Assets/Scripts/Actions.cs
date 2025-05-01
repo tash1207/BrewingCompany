@@ -7,4 +7,7 @@ public static class Actions
 
     // Player Display Options
     public static Action<PlayerDisplayOptions.Shirt> OnChooseShirt;
+
+    // Score
+    public static Action<int> OnGlasswareCleared;
 }

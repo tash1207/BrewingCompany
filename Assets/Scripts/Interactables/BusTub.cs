@@ -7,6 +7,7 @@ public class BusTub : MonoBehaviour
         int clearedGlasses = inventory.ClearGlassware();
         if (clearedGlasses > 0)
         {
+            Actions.OnGlasswareCleared(clearedGlasses);
             AlertControl.Instance.ShowAlert("Cleared " + clearedGlasses + " glasses.");
         }
         else
