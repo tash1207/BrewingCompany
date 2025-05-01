@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 
 public class BeerGlass : MonoBehaviour
@@ -23,7 +24,7 @@ public class BeerGlass : MonoBehaviour
     {
         if (beerFill.size.y > beerAmountDeemedEmpty)
         {
-            Debug.Log("Beer not empty yet");
+            AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
             return false;
         }
         else
