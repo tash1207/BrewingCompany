@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             LayerMask.GetMask("Interactable"));
         if (hit.collider != null)
         {
-            playerInventory.TryPickUp(hit.collider.gameObject);
+            playerInventory.Interact(hit.collider.gameObject);
         }
     }
 }

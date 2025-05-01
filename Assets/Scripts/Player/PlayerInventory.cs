@@ -4,14 +4,25 @@ public class PlayerInventory : MonoBehaviour
 {
     public int NumGlasses { get; private set; }
 
-    public void TryPickUp(GameObject item)
+    private int maxGlasses = 5;
+
+    public void Interact(GameObject item)
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
         {
-            if (beerGlass.PickUp())
-            {
-                ChangeGlasses(1);
-            }
+            TryPickUp(beerGlass);
+        }
+        else if (item.TryGetComponent(out BusTub busTub))
+        {
+            busTub.Interact(this);
+        }
+    }
+    
+    void TryPickUp(BeerGlass beerGlass)
+    {
+        if (beerGlass.PickUp(this))
+        {
+            ChangeGlasses(1);
         }
     }
     
@@ -24,5 +35,17 @@ public class PlayerInventory : MonoBehaviour
     public bool IsCarryingGlassware()
     {
         return NumGlasses > 0;
+    }
+
+    public bool IsCarryingMaxGlassware()
+    {
+        return NumGlasses >= maxGlasses;
+    }
+
+    public int ClearGlassware()
+    {
+        int glassesCleared = NumGlasses;
+        NumGlasses = 0;
+        return glassesCleared;
     }
 }

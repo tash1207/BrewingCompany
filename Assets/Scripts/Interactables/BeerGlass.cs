@@ -1,4 +1,3 @@
-using System.Globalization;
 using UnityEngine;
 
 public class BeerGlass : MonoBehaviour
@@ -20,11 +19,16 @@ public class BeerGlass : MonoBehaviour
         }
     }
 
-    public bool PickUp()
+    public bool PickUp(PlayerInventory inventory)
     {
         if (beerFill.size.y > beerAmountDeemedEmpty)
         {
             AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
+            return false;
+        }
+        else if (inventory.IsCarryingMaxGlassware())
+        {
+            AlertControl.Instance.ShowAlert("Already carrying 5 glasses.", 2f);
             return false;
         }
         else
