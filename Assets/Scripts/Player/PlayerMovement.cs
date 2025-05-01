@@ -14,9 +14,22 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lookDirection = new Vector2(0, -1);
     private float interactionDistance = 1.3f;
 
+    private bool isPaused;
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        isPaused = true;
+    }
+
+    void OnEnable()
+    {
+        Actions.OnLevelStarted += ResumePlayerMovement;
+    }
+
+    void OnDisable()
+    {
+        Actions.OnLevelStarted -= ResumePlayerMovement;
     }
 
     void FixedUpdate()
@@ -26,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (isPaused) { return; }
+
         moveInput = value.Get<Vector2>();
 
         if (!Mathf.Approximately(moveInput.x, 0f) || !Mathf.Approximately(moveInput.y, 0f))
@@ -40,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     void OnInteract(InputValue value)
     {
+        if (isPaused) { return; }
+
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
             lookDirection,
@@ -49,5 +66,16 @@ public class PlayerMovement : MonoBehaviour
         {
             playerInventory.Interact(hit.collider.gameObject);
         }
+    }
+
+    public void PausePlayerMovement()
+    {
+        rb2d.velocity = Vector2.zero;
+        isPaused = true;
+    }
+
+    public void ResumePlayerMovement()
+    {
+        isPaused = false;
     }
 }

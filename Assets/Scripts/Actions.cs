@@ -2,6 +2,9 @@ using System;
 
 public static class Actions
 {
+    // Game
+    public static Action OnLevelStarted;
+    
     // Inventory
     public static Action<int> OnGlasswareChanged;
 

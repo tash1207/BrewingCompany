@@ -13,12 +13,12 @@ public class PlayerDisplayOptions : MonoBehaviour
     [SerializeField] SpriteLibraryAsset greenShirt;
     [SerializeField] SpriteLibraryAsset yellowShirt;
 
-    void Awake()
+    void OnEnable()
     {
         Actions.OnChooseShirt += WearShirt;
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         Actions.OnChooseShirt -= WearShirt;
     }
