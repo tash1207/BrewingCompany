@@ -3,29 +3,39 @@ using UnityEngine.U2D.Animation;
 
 public class PlayerDisplayOptions : MonoBehaviour
 {
+    public enum Shirt
+    {
+        Green,
+        Yellow
+    }
+
     [SerializeField] SpriteLibrary spriteLibrary;
     [SerializeField] SpriteLibraryAsset greenShirt;
     [SerializeField] SpriteLibraryAsset yellowShirt;
 
     void Awake()
     {
-        LevelManager.Instance.OnChooseGreenShirt += WearGreenShirt;
-        LevelManager.Instance.OnChooseYellowShirt += WearYellowShirt;
+        Actions.OnChooseShirt += WearShirt;
     }
 
     void OnDestroy()
     {
-        LevelManager.Instance.OnChooseGreenShirt -= WearGreenShirt;
-        LevelManager.Instance.OnChooseYellowShirt -= WearYellowShirt;
+        Actions.OnChooseShirt -= WearShirt;
     }
 
-    private void WearGreenShirt()
+    private void WearShirt(Shirt shirt)
     {
-        spriteLibrary.spriteLibraryAsset = greenShirt;
-    }
-
-    private void WearYellowShirt()
-    {
-        spriteLibrary.spriteLibraryAsset = yellowShirt;
+        // Default to the green shirt.
+        SpriteLibraryAsset newShirt = greenShirt;
+        switch (shirt)
+        {
+            case Shirt.Green:
+                newShirt = greenShirt;
+                break;
+            case Shirt.Yellow:
+                newShirt = yellowShirt;
+                break;
+        }
+        spriteLibrary.spriteLibraryAsset = newShirt;
     }
 }

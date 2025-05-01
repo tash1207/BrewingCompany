@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,9 +8,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject storyModeDialog;
     [SerializeField] GameObject scoreModeDialog;
     [SerializeField] GameObject mobileControls;
-
-    public Action OnChooseGreenShirt;
-    public Action OnChooseYellowShirt;
 
     void Awake()
     {
@@ -43,12 +39,12 @@ public class LevelManager : MonoBehaviour
 
     public void ChooseGreenShirt()
     {
-        OnChooseGreenShirt?.Invoke();
+        Actions.OnChooseShirt(PlayerDisplayOptions.Shirt.Green);
     }
 
     public void ChooseYellowShirt()
     {
-        OnChooseYellowShirt?.Invoke();
+        Actions.OnChooseShirt(PlayerDisplayOptions.Shirt.Yellow);
     }
 
     public void StartLevel()
@@ -58,6 +54,7 @@ public class LevelManager : MonoBehaviour
             mobileControls.SetActive(true);
         }
         // Unpause game, set player active, start timer.
+        // TODO: Consider doing this in a start game action.
         player.SetActive(true);
         Time.timeScale = 1;
     }
