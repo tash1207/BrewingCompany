@@ -30,6 +30,7 @@ public class PlayerInventory : MonoBehaviour
     {
         NumGlasses += amount;
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
+        Actions.OnGlasswareChanged(NumGlasses);
     }
 
     public bool IsCarryingGlassware()
@@ -46,6 +47,7 @@ public class PlayerInventory : MonoBehaviour
     {
         int glassesCleared = NumGlasses;
         NumGlasses = 0;
+        Actions.OnGlasswareChanged(NumGlasses);
         return glassesCleared;
     }
 }
