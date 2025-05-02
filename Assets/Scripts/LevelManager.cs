@@ -2,24 +2,40 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] GameObject storyModeDialog;
-    [SerializeField] GameObject scoreModeDialog;
+    [SerializeField] GameObject storyModeIntroDialog;
+    [SerializeField] GameObject scoreModeIntroDialog;
+    [SerializeField] GameObject scoreModeGameOverDialog;
+
+    // TODO: Probably move this logic into its own script.
     [SerializeField] GameObject mobileControls;
+
+    private bool isStoryMode;
+
+    void OnEnable()
+    {
+        Actions.OnLevelEnded += ShowGameOver;
+    }
 
     void Start()
     {
-        Time.timeScale = 0;
+        isStoryMode = GameManager.Instance.GameMode == GameManager.Mode.Story;
 
-        if (GameManager.Instance.GameMode == GameManager.Mode.Story)
+
+        if (isStoryMode)
         {
             // Show dialog to choose shirt.
-            storyModeDialog.SetActive(true);
+            storyModeIntroDialog.SetActive(true);
         }
-        else if (GameManager.Instance.GameMode == GameManager.Mode.Score)
+        else
         {
             // Show instructions dialog and button to start level.
-            scoreModeDialog.SetActive(true);
+            scoreModeIntroDialog.SetActive(true);
         }
+    }
+
+    void OnDisable()
+    {
+        Actions.OnLevelEnded -= ShowGameOver;
     }
 
     public void ChooseGreenShirt()
@@ -39,8 +55,14 @@ public class LevelManager : MonoBehaviour
         {
             mobileControls.SetActive(true);
         }
-        // Unpause game, start timer.
-        Time.timeScale = 1;
+    }
+
+    void ShowGameOver()
+    {
+        if (!isStoryMode)
+        {
+            scoreModeGameOverDialog.SetActive(true);
+        }
     }
 
     public void LoadMainMenu()

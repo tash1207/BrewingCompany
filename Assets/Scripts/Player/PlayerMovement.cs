@@ -19,17 +19,19 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        isPaused = true;
+        PausePlayerMovement();
     }
 
     void OnEnable()
     {
         Actions.OnLevelStarted += ResumePlayerMovement;
+        Actions.OnLevelEnded += PausePlayerMovement;
     }
 
     void OnDisable()
     {
         Actions.OnLevelStarted -= ResumePlayerMovement;
+        Actions.OnLevelEnded -= PausePlayerMovement;
     }
 
     void FixedUpdate()
@@ -72,10 +74,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         isPaused = true;
+        Time.timeScale = 0;
     }
 
     public void ResumePlayerMovement()
     {
         isPaused = false;
+        Time.timeScale = 1;
     }
 }

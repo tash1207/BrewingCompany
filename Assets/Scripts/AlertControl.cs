@@ -23,6 +23,16 @@ public class AlertControl : MonoBehaviour
         Instance = this;
     }
 
+    void OnEnable()
+    {
+        Actions.OnLevelEnded += HideAlert;
+    }
+
+    void OnDisable()
+    {
+        Actions.OnLevelEnded -= HideAlert;
+    }
+
     void Update()
     {
         if (showingAlert)
