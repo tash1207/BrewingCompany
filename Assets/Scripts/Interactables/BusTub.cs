@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BusTub : MonoBehaviour
 {
     [SerializeField] GameObject bussedGlassesParent;
+    [SerializeField] GameObject statusCanvas;
+    [SerializeField] TMP_Text statusText;
 
     private int totalGlassware;
     private int maxGlassware = 25;
@@ -16,6 +19,24 @@ public class BusTub : MonoBehaviour
         {
             bussedGlassesObjects.Add(child.gameObject);
         }
+
+        UpdateBusTubDisplay();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            statusCanvas.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            statusCanvas.SetActive(false);
+        }
     }
 
     public void Interact(PlayerInventory inventory)
@@ -26,12 +47,18 @@ public class BusTub : MonoBehaviour
             totalGlassware += clearedGlasses;
             Actions.OnGlasswareCleared(clearedGlasses);
             AlertControl.Instance.ShowAlert("Cleared " + clearedGlasses + " glasses.");
-            ShowBussedGlasses();
+            UpdateBusTubDisplay();
         }
         else
         {
             AlertControl.Instance.ShowAlert("I can bring empty glasses here.");
         }
+    }
+
+    void UpdateBusTubDisplay()
+    {
+        statusText.text = totalGlassware + " / " + maxGlassware;
+        ShowBussedGlasses();
     }
 
     void ShowBussedGlasses()
