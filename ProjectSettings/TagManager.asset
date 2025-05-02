@@ -41,6 +41,9 @@ TagManager:
   - name: Ground
     uniqueID: 4001007057
     locked: 0
+  - name: Border
+    uniqueID: 1868937205
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
