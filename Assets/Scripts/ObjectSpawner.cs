@@ -8,7 +8,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] GameObject[] beerPrefabs;
 
     [Header("Settings")]
-    [SerializeField] float beerSpawnRate = 3.5f;
+    [SerializeField] float beerSpawnRate = 3.3f;
 
     private List<GameObject> tables = new List<GameObject>();
     private float beerTimer;
