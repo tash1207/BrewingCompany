@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -8,19 +9,35 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] GameObject[] beerPrefabs;
 
     [Header("Settings")]
-    [SerializeField] float beerSpawnRate = 3.3f;
+    [SerializeField] float beerSpawnRate = 3.1f;
 
     private List<GameObject> tables = new List<GameObject>();
     private float beerTimer;
+
+    private ObjectPool<GameObject> objectPool;
+    private int poolDefaultCapacity = 20;
+    private int poolMaxSize = 100;
     
     void Start()
     {
+        SetUpObjectPool();
+
         foreach(Transform child in tablesParentObject.transform)
         {
             tables.Add(child.gameObject);
         }
 
         beerTimer = beerSpawnRate;
+    }
+
+    void OnEnable()
+    {
+        Actions.OnBeerGrabbed += ReturnObjectToPool;
+    }
+
+    void OnDisable()
+    {
+        Actions.OnBeerGrabbed -= ReturnObjectToPool;
     }
 
     void Update()
@@ -33,15 +50,26 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    void SetUpObjectPool()
+    {
+        objectPool = new ObjectPool<GameObject>(() => {
+            return Instantiate(beerPrefabs[Random.Range(0, beerPrefabs.Length)]);
+        }, obj => {
+            obj.SetActive(true);
+        }, obj => {
+            obj.SetActive(false);
+        }, obj => {
+            Destroy(obj);
+        }, /* collectionCheck= */ false, poolDefaultCapacity, poolMaxSize);
+    }
+
     void SpawnBeer()
     {
         int tableIndex = Random.Range(0, tables.Count);
         GameObject table = tables[tableIndex];
-        // TODO: Consider object pooling.
-        GameObject newBeer = Instantiate(
-            beerPrefabs[Random.Range(0, beerPrefabs.Length)],
-            GetSpawnPosition(table, tableIndex == 0),
-            Quaternion.identity);
+        
+        GameObject newBeer = objectPool.Get();
+        newBeer.transform.position = GetSpawnPosition(table, tableIndex == 0);
         newBeer.transform.parent = table.transform;
 
         beerTimer = beerSpawnRate;
@@ -58,5 +86,10 @@ public class ObjectSpawner : MonoBehaviour
         return new Vector2(
             table.transform.position.x + randomX,
             table.transform.position.y + randomY);
+    }
+
+    private void ReturnObjectToPool(GameObject obj)
+    {
+        objectPool.Release(obj);
     }
 }

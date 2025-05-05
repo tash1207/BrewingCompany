@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class Actions
 {
@@ -7,6 +8,7 @@ public static class Actions
     public static Action OnLevelEnded;
 
     // Inventory
+    public static Action<GameObject> OnBeerGrabbed;
     public static Action<int> OnGlasswareChanged;
 
     // Player Display Options

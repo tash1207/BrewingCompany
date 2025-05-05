@@ -33,9 +33,15 @@ public class BeerGlass : MonoBehaviour
         }
         else
         {
-            // TODO: Look into object pooling.
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            ResetBeerFill();
+            Actions.OnBeerGrabbed(gameObject);
             return true;
         }
+    }
+
+    void ResetBeerFill()
+    {
+        beerFill.size = new Vector2(1, 1);
     }
 }
