@@ -16,4 +16,8 @@ public static class Actions
 
     // Score
     public static Action<int> OnGlasswareCleared;
+
+    // UI
+    public static Action OnButtonClicked;
+    public static Action OnButtonToggled;
 }

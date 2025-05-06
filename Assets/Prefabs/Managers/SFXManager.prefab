@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundFXObject: {fileID: 4952343172927591280, guid: 9cf39a93cb70f7649a8c8539514bd857, type: 3}
+  buttonClickClip: {fileID: 8300000, guid: 694383aa80243f34a93ff484bcd84199, type: 3}
+  buttonToggleClip: {fileID: 8300000, guid: 846e746d46671af49a5ca4129f11ced3, type: 3}
   pickUpClip: {fileID: 8300000, guid: 0b560b22ab07dd34ba36a434a1ca13de, type: 3}
   dropOffClip: {fileID: 8300000, guid: f1dc53e36169b2a49bed7dec646da8a0, type: 3}

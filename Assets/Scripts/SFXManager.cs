@@ -8,6 +8,9 @@ public class SFXManager : MonoBehaviour
 
     [SerializeField] AudioSource soundFXObject;
 
+    [SerializeField] AudioClip buttonClickClip;
+    [SerializeField] AudioClip buttonToggleClip;
+
     [SerializeField] AudioClip pickUpClip;
     [SerializeField] AudioClip dropOffClip;
 
@@ -30,22 +33,12 @@ public class SFXManager : MonoBehaviour
     void OnEnable()
     {
         SetUpObjectPool();
-        Actions.OnBeerGrabbed += (obj) => {
-            PlaySoundFXClip(pickUpClip, 1f);
-        };
-        Actions.OnGlasswareCleared += (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
-        };
+        SetUpEventListeners();
     }
 
     void OnDisable()
     {
-        Actions.OnBeerGrabbed -= (obj) => {
-            PlaySoundFXClip(pickUpClip, 1f);
-        };
-        Actions.OnGlasswareCleared -= (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
-        };
+        RemoveEventListeners();
     }
 
     void SetUpObjectPool()
@@ -59,6 +52,40 @@ public class SFXManager : MonoBehaviour
         }, obj => {
             Destroy(obj);
         }, /* collectionCheck= */ true, poolDefaultCapacity, poolMaxSize);
+    }
+
+    void SetUpEventListeners()
+    {
+        Actions.OnBeerGrabbed += (obj) => {
+            PlaySoundFXClip(pickUpClip, 1f);
+        };
+        Actions.OnGlasswareCleared += (obj) => {
+            PlaySoundFXClip(dropOffClip, 0.7f);
+        };
+
+        Actions.OnButtonClicked += () => {
+            PlaySoundFXClip(buttonClickClip, 1f);
+        };
+        Actions.OnButtonToggled += () => {
+            PlaySoundFXClip(buttonToggleClip, 1f);
+        };
+    }
+
+    void RemoveEventListeners()
+    {
+        Actions.OnBeerGrabbed -= (obj) => {
+            PlaySoundFXClip(pickUpClip, 1f);
+        };
+        Actions.OnGlasswareCleared -= (obj) => {
+            PlaySoundFXClip(dropOffClip, 0.7f);
+        };
+
+        Actions.OnButtonClicked -= () => {
+            PlaySoundFXClip(buttonClickClip, 1f);
+        };
+        Actions.OnButtonToggled -= () => {
+            PlaySoundFXClip(buttonToggleClip, 1f);
+        };
     }
 
     public void PlaySoundFXClip(AudioClip audioClip, float volume)
