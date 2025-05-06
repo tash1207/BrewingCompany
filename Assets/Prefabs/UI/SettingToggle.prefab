@@ -336,6 +336,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingItem: 0
   toggle: {fileID: 7663529813921765251}
+  toggleBackground: {fileID: 9142734780582964309}
+  selectedColor: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
 --- !u!114 &1531911043874170532
 MonoBehaviour:
   m_ObjectHideFlags: 0
