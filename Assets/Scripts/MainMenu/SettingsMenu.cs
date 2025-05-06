@@ -11,7 +11,7 @@ public class SettingsMenu : MonoBehaviour
             if (child.TryGetComponent(out SettingItem settingItem))
             {
                 settingItem.SetToggle(
-                    SettingsManager.Instance.GetSettingValue(settingItem.settingItem));
+                    SettingsManager.Instance.GetValue(settingItem.settingItem));
             }
         }
     }

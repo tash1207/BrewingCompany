@@ -48,7 +48,7 @@ public class SettingsManager : MonoBehaviour
         settingsValues[SettingItem.Music] = musicSetting;
     }
 
-    public bool GetSettingValue(SettingItem settingItem)
+    public bool GetValue(SettingItem settingItem)
     {
         return settingsValues[settingItem];
     }
@@ -72,6 +72,7 @@ public class SettingsManager : MonoBehaviour
     public void SetMusicSetting(bool value)
     {
         musicSetting = value;
+        Actions.OnBackgroundMusicToggled(value);
         SaveCurrentValues();
     }
 }
