@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isPaused) { return; }
+        
         rb2d.velocity = moveInput * moveSpeed;
     }
 
@@ -73,13 +75,12 @@ public class PlayerMovement : MonoBehaviour
     public void PausePlayerMovement()
     {
         rb2d.velocity = Vector2.zero;
+        moveInput = Vector2.zero;
         isPaused = true;
-        Time.timeScale = 0;
     }
 
     public void ResumePlayerMovement()
     {
         isPaused = false;
-        Time.timeScale = 1;
     }
 }

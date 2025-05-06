@@ -42,6 +42,8 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
+        if (PauseControl.Instance.GameIsPaused) { return; }
+
         beerTimer -= Time.deltaTime;
 
         if (beerTimer < 0)

@@ -11,6 +11,8 @@ public class BeerGlass : MonoBehaviour
 
     void Update()
     {
+        if (PauseControl.Instance.GameIsPaused) { return; }
+        
         if (beerFill != null && beerFill.size.y > 0)
         {
             beerFill.size = new Vector2(

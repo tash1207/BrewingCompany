@@ -18,8 +18,8 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        PauseControl.Instance.PauseGame();
         isStoryMode = GameManager.Instance.GameMode == GameManager.Mode.Story;
-
 
         if (isStoryMode)
         {
@@ -51,6 +51,7 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         Actions.OnLevelStarted();
+        PauseControl.Instance.ResumeGame();
         if (SettingsManager.Instance.GetMobileSetting())
         {
             mobileControls.SetActive(true);

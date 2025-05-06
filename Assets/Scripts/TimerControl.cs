@@ -32,6 +32,7 @@ public class TimerControl : MonoBehaviour
             {
                 timeLeft = 0;
                 timerOn = false;
+                PauseControl.Instance.PauseGame();
                 Actions.OnLevelEnded();
             }
         }
