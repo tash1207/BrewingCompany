@@ -8,6 +8,7 @@ public class SettingItem : MonoBehaviour
 
     public void SetToggle(bool value)
     {
-        toggle.isOn = value;
+        // We don't want the toggle sound to play when initializing the toggle value.
+        toggle.SetIsOnWithoutNotify(value);
     }
 }

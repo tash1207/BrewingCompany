@@ -219,9 +219,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8573727326264979510}
   - component: {fileID: 7663529813921765251}
+  - component: {fileID: 241223319547202922}
   - component: {fileID: 4278274782205874573}
   - component: {fileID: 1531911043874170532}
-  - component: {fileID: 6284088788200199222}
   m_Layer: 5
   m_Name: SettingToggle
   m_TagString: Untagged
@@ -297,7 +297,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6284088788200199222}
+      - m_Target: {fileID: 241223319547202922}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
         m_MethodName: OnToggle
         m_Mode: 1
@@ -310,6 +310,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!114 &241223319547202922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7317656075617515810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8253e422f799afc48a24f2a0afacce1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4278274782205874573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,18 +362,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6284088788200199222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7317656075617515810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8253e422f799afc48a24f2a0afacce1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7341609149461848495
 GameObject:
   m_ObjectHideFlags: 0
