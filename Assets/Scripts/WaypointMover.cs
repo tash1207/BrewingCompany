@@ -11,12 +11,19 @@ public class WaypointMover : MonoBehaviour
     [SerializeField] float waitTime;
     [SerializeField] bool loopWaypoints = true;
 
+    public bool IsWaiting;
+    
     private Transform[] waypoints;
     private int currentWaypointIndex;
-    private bool isWaiting;
+
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         waypoints = new Transform[waypointParent.childCount];
 
         for (int i = 0; i < waypointParent.childCount; i++)
@@ -27,7 +34,10 @@ public class WaypointMover : MonoBehaviour
 
     void Update()
     {
-        if (PauseControl.Instance.GameIsPaused || isWaiting) { return; }
+        if (PauseControl.Instance.GameIsPaused || IsWaiting) {
+            animator.SetBool("isWalking", false);
+            return;
+        }
 
         MoveToWaypoint();
     }
@@ -35,6 +45,12 @@ public class WaypointMover : MonoBehaviour
     private void MoveToWaypoint()
     {
         Transform target = waypoints[currentWaypointIndex];
+        Vector2 direction = (transform.position - target.position).normalized;
+
+        spriteRenderer.flipX = direction.x < 0;
+        animator.SetFloat("LookX", direction.x);
+        animator.SetFloat("LookY", direction.y);
+        animator.SetBool("isWalking", direction.magnitude > 0f);
 
         transform.position =
             Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
@@ -48,13 +64,14 @@ public class WaypointMover : MonoBehaviour
 
     IEnumerator WaitAtWaypoint()
     {
-        isWaiting = true;
+        IsWaiting = true;
+        animator.SetBool("isWalking", false);
         yield return new WaitForSeconds(waitTime);
 
         currentWaypointIndex = loopWaypoints ?
             (currentWaypointIndex + 1) % waypoints.Length :
             Mathf.Min(currentWaypointIndex + 1, waypoints.Length - 1);
 
-        isWaiting = false;
+        IsWaiting = false;
     }
 }
