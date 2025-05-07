@@ -29,7 +29,7 @@ public class Dog : MonoBehaviour
 
     void MaybePoop()
     {
-        if (Random.Range(0, 10) < 1)
+        if (Random.Range(0, 100) < 12)
         {
             float randomX = Random.Range(-0.15f, 0.15f);
             float randomY = Random.Range(0f, 0.25f);

@@ -8,7 +8,7 @@ public static class Actions
     public static Action OnLevelEnded;
 
     // Inventory
-    public static Action<GameObject> OnBeerGrabbed;
+    public static Action<GameObject> OnItemPickedUp;
     public static Action<int> OnGlasswareChanged;
     public static Action<int> OnPoopCountChanged;
 

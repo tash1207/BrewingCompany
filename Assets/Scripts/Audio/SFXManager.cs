@@ -56,7 +56,7 @@ public class SFXManager : MonoBehaviour
 
     void SetUpEventListeners()
     {
-        Actions.OnBeerGrabbed += (obj) => {
+        Actions.OnItemPickedUp += (obj) => {
             PlaySoundFXClip(pickUpClip, 1f);
         };
         Actions.OnGlasswareCleared += (obj) => {
@@ -76,7 +76,7 @@ public class SFXManager : MonoBehaviour
 
     void RemoveEventListeners()
     {
-        Actions.OnBeerGrabbed -= (obj) => {
+        Actions.OnItemPickedUp -= (obj) => {
             PlaySoundFXClip(pickUpClip, 1f);
         };
         Actions.OnGlasswareCleared -= (obj) => {

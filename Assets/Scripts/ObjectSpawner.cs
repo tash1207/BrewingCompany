@@ -32,12 +32,12 @@ public class ObjectSpawner : MonoBehaviour
 
     void OnEnable()
     {
-        Actions.OnBeerGrabbed += ReturnObjectToPool;
+        Actions.OnItemPickedUp += ReturnObjectToPool;
     }
 
     void OnDisable()
     {
-        Actions.OnBeerGrabbed -= ReturnObjectToPool;
+        Actions.OnItemPickedUp -= ReturnObjectToPool;
     }
 
     void Update()
@@ -92,6 +92,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private void ReturnObjectToPool(GameObject obj)
     {
-        objectPool.Release(obj);
+        if (obj.TryGetComponent(out BeerGlass beerGlass))
+        {
+            objectPool.Release(obj);
+        }
     }
 }

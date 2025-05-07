@@ -42,7 +42,7 @@ public class BeerGlass : MonoBehaviour
         {
             gameObject.SetActive(false);
             ResetBeerFill();
-            Actions.OnBeerGrabbed(gameObject);
+            Actions.OnItemPickedUp(gameObject);
             return true;
         }
     }
