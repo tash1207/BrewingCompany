@@ -12,17 +12,15 @@ public class WaypointMover : MonoBehaviour
     [SerializeField] bool loopWaypoints = true;
 
     public bool IsWaiting;
-    
+
     private Transform[] waypoints;
     private int currentWaypointIndex;
 
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         waypoints = new Transform[waypointParent.childCount];
 
@@ -46,8 +44,7 @@ public class WaypointMover : MonoBehaviour
     {
         Transform target = waypoints[currentWaypointIndex];
         Vector2 direction = (transform.position - target.position).normalized;
-
-        spriteRenderer.flipX = direction.x < 0;
+        
         animator.SetFloat("LookX", direction.x);
         animator.SetFloat("LookY", direction.y);
         animator.SetBool("isWalking", direction.magnitude > 0f);
@@ -73,5 +70,6 @@ public class WaypointMover : MonoBehaviour
             Mathf.Min(currentWaypointIndex + 1, waypoints.Length - 1);
 
         IsWaiting = false;
+        transform.Rotate(0, 180f, 0);
     }
 }

@@ -20,6 +20,10 @@ public class PlayerInventory : MonoBehaviour
         {
             TryPickUp(dogPoop);
         }
+        else if (item.TryGetComponent(out Dog dog))
+        {
+            dog.Pet();
+        }
     }
     
     void TryPickUp(BeerGlass beerGlass)

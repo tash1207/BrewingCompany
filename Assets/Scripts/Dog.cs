@@ -1,11 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class Dog : MonoBehaviour
 {
+    [SerializeField] GameObject heartBubble;
     [SerializeField] GameObject dogPoopPrefab;
 
     private WaypointMover waypointMover;
     private bool hasTriedToPoop;
+    private bool isShowingHeartBubble;
 
     void Start()
     {
@@ -34,5 +37,20 @@ public class Dog : MonoBehaviour
             Instantiate(dogPoopPrefab, poopPosition, Quaternion.identity);
         }
         hasTriedToPoop = true;
+    }
+
+    public void Pet()
+    {
+        if (isShowingHeartBubble) { return; }
+        StartCoroutine(ShowHeartBubbleForSeconds(1.5f));
+    }
+
+    IEnumerator ShowHeartBubbleForSeconds(float seconds)
+    {
+        isShowingHeartBubble = true;
+        heartBubble.SetActive(true);
+        yield return new WaitForSeconds(seconds);
+        heartBubble.SetActive(false);
+        isShowingHeartBubble = false;
     }
 }
