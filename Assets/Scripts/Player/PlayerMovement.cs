@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         if (isPaused) { return; }
 
         RaycastHit2D hit = Physics2D.Raycast(
-            transform.position,
+            new Vector2(transform.position.x, transform.position.y + 0.75f),
             lookDirection,
             interactionDistance,
             LayerMask.GetMask("Interactable"));

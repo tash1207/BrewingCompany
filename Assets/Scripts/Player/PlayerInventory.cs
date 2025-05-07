@@ -16,6 +16,10 @@ public class PlayerInventory : MonoBehaviour
         {
             busTub.Interact(this);
         }
+        else if (item.TryGetComponent(out DogPoop dogPoop))
+        {
+            TryPickUp(dogPoop);
+        }
     }
     
     void TryPickUp(BeerGlass beerGlass)
@@ -23,6 +27,14 @@ public class PlayerInventory : MonoBehaviour
         if (beerGlass.PickUp(this))
         {
             ChangeGlasses(1);
+        }
+    }
+
+    void TryPickUp(DogPoop dogPoop)
+    {
+        if (dogPoop.PickUp(this))
+        {
+            // TODO: Update HUD
         }
     }
     

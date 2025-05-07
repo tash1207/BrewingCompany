@@ -10,7 +10,7 @@ public class AlertControl : MonoBehaviour
 
     private bool showingAlert;
     private float alertTimer;
-    private float defaultAlertDuration = 4.0f;
+    private float defaultAlertDuration = 2.5f;
 
     void Awake()
     {
