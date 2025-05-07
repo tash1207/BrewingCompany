@@ -23,14 +23,19 @@ public class BeerGlass : MonoBehaviour
 
     public bool PickUp(PlayerInventory inventory)
     {
-        if (beerFill.size.y > beerAmountDeemedEmpty)
+        if (inventory.IsCarryingPoop())
         {
-            AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
+            AlertControl.Instance.ShowAlert("Throw away poop before picking up glassware.", 2f);
             return false;
         }
         else if (inventory.IsCarryingMaxGlassware())
         {
             AlertControl.Instance.ShowAlert("Already carrying 5 glasses.", 2f);
+            return false;
+        }
+        else if (beerFill.size.y > beerAmountDeemedEmpty)
+        {
+            AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
             return false;
         }
         else

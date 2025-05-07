@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public int NumGlasses { get; private set; }
+    public int NumPoops { get; private set; }
 
     private int maxGlasses = 5;
 
@@ -24,6 +25,10 @@ public class PlayerInventory : MonoBehaviour
         {
             dog.Pet();
         }
+        else if (item.TryGetComponent(out TrashCan trashCan))
+        {
+            trashCan.ThrowAwayTrashItems(this);
+        }
     }
     
     void TryPickUp(BeerGlass beerGlass)
@@ -38,7 +43,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (dogPoop.PickUp(this))
         {
-            // TODO: Update HUD
+            ChangePoopCount(1);
         }
     }
     
@@ -49,9 +54,21 @@ public class PlayerInventory : MonoBehaviour
         Actions.OnGlasswareChanged(NumGlasses);
     }
 
+    public void ChangePoopCount(int amount)
+    {
+        NumPoops += amount;
+        NumPoops = Mathf.Clamp(NumPoops, 0, int.MaxValue);
+        Actions.OnPoopCountChanged(NumPoops);
+    }
+
     public bool IsCarryingGlassware()
     {
         return NumGlasses > 0;
+    }
+
+    public bool IsCarryingPoop()
+    {
+        return NumPoops > 0;
     }
 
     public bool IsCarryingMaxGlassware()
@@ -65,5 +82,13 @@ public class PlayerInventory : MonoBehaviour
         NumGlasses = 0;
         Actions.OnGlasswareChanged(NumGlasses);
         return glassesCleared;
+    }
+
+    public int ClearPoops()
+    {
+        int poopsDiscarded = NumPoops;
+        NumPoops = 0;
+        Actions.OnPoopCountChanged(NumPoops);
+        return poopsDiscarded;
     }
 }

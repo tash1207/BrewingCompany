@@ -41,12 +41,20 @@ public class BusTub : MonoBehaviour
 
     public void Interact(PlayerInventory inventory)
     {
+        if (inventory.IsCarryingPoop())
+        {
+            AlertControl.Instance.ShowAlert("Poop goes in the trash can, not the bus tub.");
+            return;
+        }
+
         int clearedGlasses = inventory.ClearGlassware();
         if (clearedGlasses > 0)
         {
             totalGlassware += clearedGlasses;
             Actions.OnGlasswareCleared(clearedGlasses);
-            AlertControl.Instance.ShowAlert("Cleared " + clearedGlasses + " glasses.");
+            AlertControl.Instance.ShowAlert(
+                "Cleared " + clearedGlasses +
+                (clearedGlasses == 1 ? " glass." : " glasses."), 2f);
             UpdateBusTubDisplay();
         }
         else

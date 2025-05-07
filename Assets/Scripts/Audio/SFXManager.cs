@@ -62,6 +62,9 @@ public class SFXManager : MonoBehaviour
         Actions.OnGlasswareCleared += (obj) => {
             PlaySoundFXClip(dropOffClip, 0.7f);
         };
+        Actions.OnPoopsThrownAway += (obj) => {
+            PlaySoundFXClip(dropOffClip, 0.7f);
+        };
 
         Actions.OnButtonClicked += () => {
             PlaySoundFXClip(buttonClickClip, 1f);
@@ -77,6 +80,9 @@ public class SFXManager : MonoBehaviour
             PlaySoundFXClip(pickUpClip, 1f);
         };
         Actions.OnGlasswareCleared -= (obj) => {
+            PlaySoundFXClip(dropOffClip, 0.7f);
+        };
+        Actions.OnPoopsThrownAway -= (obj) => {
             PlaySoundFXClip(dropOffClip, 0.7f);
         };
 

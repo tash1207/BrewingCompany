@@ -10,12 +10,14 @@ public static class Actions
     // Inventory
     public static Action<GameObject> OnBeerGrabbed;
     public static Action<int> OnGlasswareChanged;
+    public static Action<int> OnPoopCountChanged;
 
     // Player Display Options
     public static Action<PlayerDisplayOptions.Shirt> OnChooseShirt;
 
     // Score
     public static Action<int> OnGlasswareCleared;
+    public static Action<int> OnPoopsThrownAway;
 
     // Settings
     public static Action<bool> OnBackgroundMusicToggled;
