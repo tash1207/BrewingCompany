@@ -4632,7 +4632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6224903863804294364, guid: 7bce23a4642469a4296e728d36e70bca, type: 3}
       propertyPath: m_text
-      value: Mobile Friendly Mode
+      value: Mobile Controls
       objectReference: {fileID: 0}
     - target: {fileID: 7317656075617515810, guid: 7bce23a4642469a4296e728d36e70bca, type: 3}
       propertyPath: m_Name
