@@ -23,6 +23,16 @@ public class BusTub : MonoBehaviour
         UpdateBusTubDisplay();
     }
 
+    void OnEnable()
+    {
+        Actions.ResetLevel += ResetState;
+    }
+
+    void OnDisable()
+    {
+        Actions.ResetLevel -= ResetState;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -63,18 +73,33 @@ public class BusTub : MonoBehaviour
         }
     }
 
-    void UpdateBusTubDisplay()
+    private void UpdateBusTubDisplay()
     {
         statusText.text = totalGlassware + " / " + maxGlassware;
         ShowBussedGlasses();
     }
 
-    void ShowBussedGlasses()
+    private void ShowBussedGlasses()
     {
         int maxCount = Mathf.Clamp(totalGlassware, 0, bussedGlassesObjects.Count);
         for (int i = 0; i < maxCount; i++)
         {
             bussedGlassesObjects[i].SetActive(true);
         }
+    }
+
+    private void HideAllBussedGlasses()
+    {
+        for (int i = 0; i < bussedGlassesObjects.Count; i++)
+        {
+            bussedGlassesObjects[i].SetActive(false);
+        }
+    }
+
+    private void ResetState()
+    {
+        totalGlassware = 0;
+        UpdateBusTubDisplay();
+        HideAllBussedGlasses();
     }
 }

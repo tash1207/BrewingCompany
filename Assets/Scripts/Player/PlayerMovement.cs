@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private float moveSpeed = 3.5f;
 
+    private Vector2 initialPosition;
     private Vector2 lookDirection = new Vector2(0, -1);
     private float interactionDistance = 1.3f;
 
@@ -22,16 +23,23 @@ public class PlayerMovement : MonoBehaviour
         PausePlayerMovement();
     }
 
+    void Start()
+    {
+        initialPosition = transform.position;
+    }
+
     void OnEnable()
     {
         Actions.OnLevelStarted += ResumePlayerMovement;
         Actions.OnLevelEnded += PausePlayerMovement;
+        Actions.ResetLevel += ResetPlayerPosition;
     }
 
     void OnDisable()
     {
         Actions.OnLevelStarted -= ResumePlayerMovement;
         Actions.OnLevelEnded -= PausePlayerMovement;
+        Actions.ResetLevel -= ResetPlayerPosition;
     }
 
     void FixedUpdate()
@@ -82,5 +90,13 @@ public class PlayerMovement : MonoBehaviour
     public void ResumePlayerMovement()
     {
         isPaused = false;
+    }
+
+    private void ResetPlayerPosition()
+    {
+        transform.position = initialPosition;
+        lookDirection.Set(0, -1);
+        animator.SetFloat("LookX", lookDirection.x);
+        animator.SetFloat("LookY", lookDirection.y);
     }
 }

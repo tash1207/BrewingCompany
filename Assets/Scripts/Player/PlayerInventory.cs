@@ -7,6 +7,16 @@ public class PlayerInventory : MonoBehaviour
 
     private int maxGlasses = 5;
 
+    void OnEnable()
+    {
+        Actions.ResetLevel += ResetState;
+    }
+
+    void OnDisable()
+    {
+        Actions.ResetLevel -= ResetState;
+    }
+    
     public void Interact(GameObject item)
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
@@ -90,5 +100,11 @@ public class PlayerInventory : MonoBehaviour
         NumPoops = 0;
         Actions.OnPoopCountChanged(NumPoops);
         return poopsDiscarded;
+    }
+
+    private void ResetState()
+    {
+        NumGlasses = 0;
+        NumPoops = 0;
     }
 }

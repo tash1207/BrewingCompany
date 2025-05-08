@@ -47,8 +47,13 @@ public class BeerGlass : MonoBehaviour
         }
     }
 
-    void ResetBeerFill()
+    public void SetBeerFill(float fill)
     {
-        beerFill.size = new Vector2(1, 1);
+        beerFill.size = new Vector2(1, fill);
+    }
+
+    public void ResetBeerFill()
+    {
+        SetBeerFill(1f);
     }
 }

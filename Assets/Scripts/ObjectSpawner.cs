@@ -15,6 +15,7 @@ public class ObjectSpawner : MonoBehaviour
     private float beerTimer;
 
     private ObjectPool<GameObject> objectPool;
+    private List<GameObject> objectPoolObjects = new List<GameObject>();
     private int poolDefaultCapacity = 20;
     private int poolMaxSize = 100;
     
@@ -27,17 +28,20 @@ public class ObjectSpawner : MonoBehaviour
             tables.Add(child.gameObject);
         }
 
+        SpawnInitialBeers();
         beerTimer = beerSpawnRate;
     }
 
     void OnEnable()
     {
         Actions.OnItemPickedUp += ReturnObjectToPool;
+        Actions.ResetLevel += ResetState;
     }
 
     void OnDisable()
     {
         Actions.OnItemPickedUp -= ReturnObjectToPool;
+        Actions.ResetLevel -= ResetState;
     }
 
     void Update()
@@ -48,14 +52,16 @@ public class ObjectSpawner : MonoBehaviour
 
         if (beerTimer < 0)
         {
-            SpawnBeer();
+            SpawnRandomBeer();
         }
     }
 
     void SetUpObjectPool()
     {
         objectPool = new ObjectPool<GameObject>(() => {
-            return Instantiate(beerPrefabs[Random.Range(0, beerPrefabs.Length)]);
+            GameObject newObject = Instantiate(beerPrefabs[Random.Range(0, beerPrefabs.Length)]);
+            objectPoolObjects.Add(newObject);
+            return newObject;
         }, obj => {
             obj.SetActive(true);
         }, obj => {
@@ -65,16 +71,34 @@ public class ObjectSpawner : MonoBehaviour
         }, /* collectionCheck= */ false, poolDefaultCapacity, poolMaxSize);
     }
 
-    void SpawnBeer()
+    void SpawnInitialBeers()
     {
-        int tableIndex = Random.Range(0, tables.Count);
+        SpawnBeer(0, 1f);
+        SpawnBeer(2, 0.5f);
+        SpawnBeer(3, 1f);
+        SpawnBeer(4, 0f);
+        SpawnBeer(4, 0f);
+        SpawnBeer(4, 0f);
+    }
+
+    void SpawnRandomBeer()
+    {
+        SpawnBeer(Random.Range(0, tables.Count), 1f);
+
+        beerTimer = beerSpawnRate;
+    }
+
+    void SpawnBeer(int tableIndex, float fill)
+    {
         GameObject table = tables[tableIndex];
-        
         GameObject newBeer = objectPool.Get();
         newBeer.transform.position = GetSpawnPosition(table, tableIndex == 0);
         newBeer.transform.parent = table.transform;
 
-        beerTimer = beerSpawnRate;
+        if (fill != 1f && newBeer.TryGetComponent(out BeerGlass beerGlass))
+        {
+            beerGlass.SetBeerFill(fill);
+        }
     }
 
     private Vector2 GetSpawnPosition(GameObject table, bool isHorizontalTable)
@@ -95,6 +119,18 @@ public class ObjectSpawner : MonoBehaviour
         if (obj.TryGetComponent(out BeerGlass beerGlass))
         {
             objectPool.Release(obj);
+            beerGlass.ResetBeerFill();
         }
+    }
+
+    private void ResetState()
+    {
+        foreach(GameObject obj in objectPoolObjects)
+        {
+            ReturnObjectToPool(obj);
+        }
+
+        SpawnInitialBeers();
+        beerTimer = beerSpawnRate;
     }
 }

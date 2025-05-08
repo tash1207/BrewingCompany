@@ -13,12 +13,14 @@ public class HUD : MonoBehaviour
     {
         Actions.OnGlasswareChanged += UpdateGlassware;
         Actions.OnPoopCountChanged += UpdatePoopCount;
+        Actions.ResetLevel += ResetState;
     }
 
     void OnDisable()
     {
         Actions.OnGlasswareChanged -= UpdateGlassware;
         Actions.OnPoopCountChanged -= UpdatePoopCount;
+        Actions.ResetLevel -= ResetState;
     }
 
     void UpdateGlassware(int totalGlassware)
@@ -39,5 +41,10 @@ public class HUD : MonoBehaviour
     {
         beerDisplay.SetActive(false);
         poopDisplay.SetActive(false);
+    }
+
+    private void ResetState()
+    {
+        UpdateGlassware(0);
     }
 }

@@ -3,23 +3,38 @@ using UnityEngine;
 
 public class ScoreControl : MonoBehaviour
 {
+    public static ScoreControl Instance { get; private set; }
+    public int CurrentScore = 0;
+
     [SerializeField] TMP_Text scoreText;
 
-    private int currentScore = 0;
     private int glasswareValue = 1;
     private int poopValue = 4;
 
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
     void OnEnable()
     {
-        scoreText.text = currentScore.ToString();
+        scoreText.text = CurrentScore.ToString();
         Actions.OnGlasswareCleared += IncrementGlasswareScore;
         Actions.OnPoopsThrownAway += IncrementPoopThrownAwayScore;
+        Actions.ResetLevel += ResetScore;
     }
 
     void OnDisable()
     {
         Actions.OnGlasswareCleared -= IncrementGlasswareScore;
         Actions.OnPoopsThrownAway -= IncrementPoopThrownAwayScore;
+        Actions.ResetLevel -= ResetScore;
     }
 
     void IncrementGlasswareScore(int glasswareAmount)
@@ -34,7 +49,13 @@ public class ScoreControl : MonoBehaviour
 
     void IncrementScore(int amount)
     {
-        currentScore += amount;
-        scoreText.text = currentScore.ToString();
+        CurrentScore += amount;
+        scoreText.text = CurrentScore.ToString();
+    }
+
+    public void ResetScore()
+    {
+        CurrentScore = 0;
+        scoreText.text = CurrentScore.ToString();
     }
 }

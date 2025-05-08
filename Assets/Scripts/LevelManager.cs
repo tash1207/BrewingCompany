@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] GameObject storyModeIntroDialog;
     [SerializeField] GameObject scoreModeIntroDialog;
-    [SerializeField] GameObject scoreModeGameOverDialog;
+    [SerializeField] GameOverDialog scoreModeGameOverDialog;
 
     // TODO: Probably move this logic into its own script.
     [SerializeField] GameObject mobileControlsDialog;
@@ -40,7 +40,6 @@ public class LevelManager : MonoBehaviour
     /** Return whether the dialog is shown. */
     private bool MaybeShowMobileControlsDialog()
     {
-        // TODO Check if on mobile.
         if (IsMobileWebGL() && !SettingsManager.Instance.GetMobileSetting())
         {
             mobileControlsDialog.SetActive(true);
@@ -103,11 +102,19 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void RestartLevel()
+    {
+        Actions.ResetLevel();
+        StartLevel();
+    }
+
     void ShowGameOver()
     {
+        mobileControls.SetActive(false);
+
         if (!isStoryMode)
         {
-            scoreModeGameOverDialog.SetActive(true);
+            scoreModeGameOverDialog.Show();
         }
     }
 
