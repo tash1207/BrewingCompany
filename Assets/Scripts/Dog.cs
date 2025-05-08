@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Dog : MonoBehaviour
@@ -10,6 +11,8 @@ public class Dog : MonoBehaviour
     private bool hasTriedToPoop;
     private bool isPooping;
     private bool isShowingHeartBubble;
+
+    private List<GameObject> dogPoopObjects = new List<GameObject>();
 
     void Start()
     {
@@ -26,6 +29,18 @@ public class Dog : MonoBehaviour
         {
             hasTriedToPoop = false;
         }
+    }
+
+    void OnEnable()
+    {
+        Actions.OnItemPickedUp += RemovePoop;
+        Actions.ResetLevel += ResetPoops;
+    }
+
+    void OnDisable()
+    {
+        Actions.OnItemPickedUp -= RemovePoop;
+        Actions.ResetLevel -= ResetPoops;
     }
 
     void MaybePoop()
@@ -45,7 +60,8 @@ public class Dog : MonoBehaviour
         float randomY = Random.Range(0f, 0.25f);
         Vector2 poopPosition = new Vector2(transform.position.x + randomX, transform.position.y + randomY);
         yield return new WaitForSeconds(2f);
-        Instantiate(dogPoopPrefab, poopPosition, Quaternion.identity);
+        GameObject newPoop = Instantiate(dogPoopPrefab, poopPosition, Quaternion.identity);
+        dogPoopObjects.Add(newPoop);
         isPooping = false;
     }
 
@@ -63,5 +79,25 @@ public class Dog : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         heartBubble.SetActive(false);
         isShowingHeartBubble = false;
+    }
+
+    private void RemovePoop(GameObject obj)
+    {
+        if (obj.TryGetComponent(out DogPoop dogPoop))
+        {
+            GameObject dogPoopObject = dogPoop.transform.parent.gameObject;
+            dogPoopObjects.Remove(dogPoopObject);
+            Destroy(dogPoopObject);
+        }
+    }
+
+    private void ResetPoops()
+    {
+        foreach (GameObject obj in dogPoopObjects)
+        {
+            Destroy(obj);
+        }
+
+        dogPoopObjects.Clear();
     }
 }

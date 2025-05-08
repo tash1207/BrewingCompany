@@ -12,7 +12,6 @@ public class DogPoop : MonoBehaviour
         else
         {
             Actions.OnItemPickedUp(gameObject);
-            Destroy(transform.parent.gameObject);
             return true;
         }
     }
