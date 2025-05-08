@@ -46,15 +46,28 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void LoadStoryMode()
+    public void LoadStoryMode(int day)
     {
         GameMode = Mode.Story;
-        SceneManager.LoadScene("Zone 1");
+        if (day == 1)
+        {
+            SceneManager.LoadScene("Zone 2");
+        }
+        else
+        {
+            SceneManager.LoadScene("Zone 1");
+        }
     }
 
     public void LoadZone1()
     {
         GameMode = Mode.Score;
         SceneManager.LoadScene("Zone 1");
+    }
+
+    public void LoadZone2()
+    {
+        GameMode = Mode.Score;
+        SceneManager.LoadScene("Zone 2");
     }
 }

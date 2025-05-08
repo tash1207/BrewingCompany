@@ -8,6 +8,16 @@ public class StoryMenu : MonoBehaviour
     [SerializeField] GameObject overwriteAlert;
 
     private bool hasSavedStory;
+    private int currentDay;
+
+    // TODO: Don't use prefs for story mode save content.
+    private const string storySettingName = "StoryCurrentDay";
+
+    void Awake()
+    {
+        currentDay = PlayerPrefs.GetInt(storySettingName, -1);
+        hasSavedStory = currentDay > 0;
+    }
 
     void Start()
     {
@@ -39,11 +49,13 @@ public class StoryMenu : MonoBehaviour
     public void ConfirmNewStory()
     {
         // Overwrite old story.
+        PlayerPrefs.SetInt(storySettingName, 0);
+        currentDay = 0;
         LoadStoryMode();
     }
 
     void LoadStoryMode()
     {
-        GameManager.Instance.LoadStoryMode();
+        GameManager.Instance.LoadStoryMode(currentDay);
     }
 }

@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject storyModeIntroDialog;
     [SerializeField] GameObject scoreModeIntroDialog;
     [SerializeField] GameOverDialog scoreModeGameOverDialog;
+    [SerializeField] GameOverDialog storyModeDayOverDialog;
 
     // TODO: Probably move this logic into its own script.
     [SerializeField] GameObject mobileControlsDialog;
@@ -108,14 +109,31 @@ public class LevelManager : MonoBehaviour
         StartLevel();
     }
 
+    public void NextLevel()
+    {
+        // TODO: Grab current day from settings.
+        PlayerPrefs.SetInt("StoryCurrentDay", 1);
+        GameManager.Instance.LoadStoryMode(1);
+    }
+
     void ShowGameOver()
     {
         mobileControls.SetActive(false);
 
-        if (!isStoryMode)
+        if (isStoryMode)
+        {
+            storyModeDayOverDialog.Show();
+        }
+        else
         {
             scoreModeGameOverDialog.Show();
         }
+    }
+
+    public void SaveAndExitToMainMenu()
+    {
+        PlayerPrefs.SetInt("StoryCurrentDay", 1);
+        LoadMainMenu();
     }
 
     public void LoadMainMenu()
