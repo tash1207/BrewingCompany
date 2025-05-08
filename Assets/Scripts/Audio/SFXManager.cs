@@ -8,11 +8,17 @@ public class SFXManager : MonoBehaviour
 
     [SerializeField] AudioSource soundFXObject;
 
+    [Header("UI Sounds")]
     [SerializeField] AudioClip buttonClickClip;
     [SerializeField] AudioClip buttonToggleClip;
 
+    [Header("Inventory Sounds")]
     [SerializeField] AudioClip pickUpClip;
     [SerializeField] AudioClip dropOffClip;
+
+    [Header("Dog Sounds")]
+    [SerializeField] AudioClip[] dogBarkClips;
+    [SerializeField] AudioClip dogBreathingClip;
 
     private ObjectPool<AudioSource> objectPool;
     private int poolDefaultCapacity = 4;
@@ -92,6 +98,17 @@ public class SFXManager : MonoBehaviour
         Actions.OnButtonToggled -= () => {
             PlaySoundFXClip(buttonToggleClip, 1f);
         };
+    }
+
+    public void PlayDogBark()
+    {
+        AudioClip dogBarkClip = dogBarkClips[Random.Range(0, dogBarkClips.Length)];
+        PlaySoundFXClip(dogBarkClip, 1f);
+    }
+
+    public void PlayDogBreathing()
+    {
+        PlaySoundFXClip(dogBreathingClip, 0.65f);
     }
 
     public void PlaySoundFXClip(AudioClip audioClip, float volume)
