@@ -7,6 +7,8 @@ public class StoryModeManager : MonoBehaviour
     public bool HasSavedStory { get; private set; }
     public int CurrentDay { get; private set; }
 
+    public int MinimumScoreToNotFailDay = 5;
+
     // TODO: Don't use prefs for story mode save content.
     private const string storySettingName = "StoryCurrentDay";
 
