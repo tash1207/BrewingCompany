@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5636200453125865474}
   - component: {fileID: 6874458075823827636}
   - component: {fileID: 6989422279444566021}
+  - component: {fileID: 4810055715363384575}
   m_Layer: 0
   m_Name: table-horizontal
   m_TagString: Untagged
@@ -143,3 +144,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2324457, y: 1.2636122}
   m_EdgeRadius: 0
+--- !u!114 &4810055715363384575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770269585930844972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9875a54d1514f4eb421b856d5ef119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHorizontalTable: 1

@@ -11,7 +11,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float beerSpawnRate = 3.1f;
 
-    private List<GameObject> tables = new List<GameObject>();
+    private List<Table> tables = new List<Table>();
     private float beerTimer;
 
     private ObjectPool<GameObject> objectPool;
@@ -25,7 +25,10 @@ public class ObjectSpawner : MonoBehaviour
 
         foreach(Transform child in tablesParentObject.transform)
         {
-            tables.Add(child.gameObject);
+            if (child.TryGetComponent(out Table table))
+            {
+                tables.Add(table);
+            }
         }
 
         SpawnInitialBeers();
@@ -96,9 +99,9 @@ public class ObjectSpawner : MonoBehaviour
 
     void SpawnBeer(int tableIndex, float fill)
     {
-        GameObject table = tables[tableIndex];
+        Table table = tables[tableIndex];
         GameObject newBeer = objectPool.Get();
-        newBeer.transform.position = GetSpawnPosition(table, tableIndex == 0);
+        newBeer.transform.position = GetSpawnPosition(table);
         newBeer.transform.parent = table.transform;
 
         if (fill != 1f && newBeer.TryGetComponent(out BeerGlass beerGlass))
@@ -107,11 +110,10 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private Vector2 GetSpawnPosition(GameObject table, bool isHorizontalTable)
+    private Vector2 GetSpawnPosition(Table table)
     {
-        // TODO: Create Table script that contains the table's bounds for spawning.
-        float xRange = isHorizontalTable ? 0.94f : 0.7f;
-        float yRange = isHorizontalTable ? 0.42f : 0.8f;
+        float xRange = table.getXRange();
+        float yRange = table.getYRange();
 
         float randomX = Random.Range(-xRange, xRange);
         float randomY = Random.Range(-yRange, yRange);
