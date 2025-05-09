@@ -13,7 +13,7 @@ public class LevelSelectMenu : MonoBehaviour
         levelsParentObject.transform.GetChild(0).gameObject.SetActive(true);
 
         if (levelsParentObject.transform.childCount > 1 &&
-            PlayerPrefs.GetInt("StoryCurrentDay", -1) > 0)
+            StoryModeManager.Instance.CurrentDay > 0)
         {
             levelsParentObject.transform.GetChild(1).gameObject.SetActive(true);
         }

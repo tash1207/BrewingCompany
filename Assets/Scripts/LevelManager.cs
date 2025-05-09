@@ -111,9 +111,8 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        // TODO: Grab current day from settings.
-        PlayerPrefs.SetInt("StoryCurrentDay", 1);
-        GameManager.Instance.LoadStoryMode(1);
+        StoryModeManager.Instance.IncrementCurrentDay();
+        GameManager.Instance.LoadStoryMode(StoryModeManager.Instance.CurrentDay);
     }
 
     void ShowGameOver()
@@ -132,7 +131,7 @@ public class LevelManager : MonoBehaviour
 
     public void SaveAndExitToMainMenu()
     {
-        PlayerPrefs.SetInt("StoryCurrentDay", 1);
+        StoryModeManager.Instance.IncrementCurrentDay();
         LoadMainMenu();
     }
 
