@@ -54,3 +54,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 53c60e9cba7d7a446b36f160858707fa, type: 3}
   - {fileID: 8300000, guid: 8c2a7e5988894424a93ebca718950a23, type: 3}
   dogBreathingClip: {fileID: 8300000, guid: 951865ef85780db40b709ca62c83fe6b, type: 3}
+  timerBeepClip: {fileID: 8300000, guid: 5393e20b0c8d2e1429574305c46faf18, type: 3}

@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1129763011}
+  levelDuration: 60
+  defaultBeepTime: 5
 --- !u!4 &6108364
 Transform:
   m_ObjectHideFlags: 0

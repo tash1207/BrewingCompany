@@ -20,6 +20,9 @@ public class SFXManager : MonoBehaviour
     [SerializeField] AudioClip[] dogBarkClips;
     [SerializeField] AudioClip dogBreathingClip;
 
+    [Header("Game Sounds")]
+    [SerializeField] AudioClip timerBeepClip;
+
     private ObjectPool<AudioSource> objectPool;
     private int poolDefaultCapacity = 4;
     private int poolMaxSize = 10;
@@ -109,6 +112,11 @@ public class SFXManager : MonoBehaviour
     public void PlayDogBreathing()
     {
         PlaySoundFXClip(dogBreathingClip, 0.65f);
+    }
+
+    public void PlayTimerBeep()
+    {
+        PlaySoundFXClip(timerBeepClip, 0.9f);
     }
 
     public void PlaySoundFXClip(AudioClip audioClip, float volume)

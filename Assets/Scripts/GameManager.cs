@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public void LoadStoryMode(int day)
     {
         GameMode = Mode.Story;
-        if (day == 1)
+        if (day >= 1)
         {
             SceneManager.LoadScene("Zone 2");
         }

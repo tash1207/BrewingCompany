@@ -4,10 +4,17 @@ using UnityEngine;
 public class TimerControl : MonoBehaviour
 {
     [SerializeField] TMP_Text timerText;
+    [SerializeField] float levelDuration = 60f;
+    [SerializeField] float defaultBeepTime = 5f;
 
-    private float levelDuration = 60f;
+    private float beepTime;
     private float timeLeft;
     private bool timerOn;
+
+    void Start()
+    {
+        UpdateTimerUI(levelDuration - 1);
+    }
 
     void OnEnable()
     {
@@ -27,6 +34,11 @@ public class TimerControl : MonoBehaviour
             {
                 timeLeft -= Time.deltaTime;
                 UpdateTimerUI(timeLeft);
+
+                if (timeLeft < beepTime)
+                {
+                    FinalSeconds();
+                }
             }
             else
             {
@@ -49,9 +61,18 @@ public class TimerControl : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    void FinalSeconds()
+    {
+        timerText.color = Color.red;
+        SFXManager.Instance.PlayTimerBeep();
+        beepTime -= 1f;
+    }
+
     void StartTimer()
     {
+        timerText.color = Color.black;
         timeLeft = levelDuration;
+        beepTime = defaultBeepTime;
         timerOn = true;
     }
 }
