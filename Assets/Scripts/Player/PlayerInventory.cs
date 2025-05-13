@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
     public int NumPoops { get; private set; }
 
     private int maxGlasses = 5;
+    private bool allowRiskyPickup = false;
 
     void OnEnable()
     {
@@ -43,6 +44,11 @@ public class PlayerInventory : MonoBehaviour
     
     void TryPickUp(BeerGlass beerGlass)
     {
+        if (!allowRiskyPickup && IsCarryingMaxGlassware())
+        {
+            AlertControl.Instance.ShowAlert("Already carrying 5 glasses.", 2f);
+            return;
+        }
         if (beerGlass.PickUp(this))
         {
             ChangeGlasses(1);
@@ -59,9 +65,30 @@ public class PlayerInventory : MonoBehaviour
     
     public void ChangeGlasses(int amount)
     {
-        NumGlasses += amount;
+        if (allowRiskyPickup && IsCarryingMaxGlassware() && MaybeDropGlassware())
+        {
+            // TODO: Keep track of glasses broken.
+            NumGlasses = 0;
+            SFXManager.Instance.PlayGlassBreaking();
+            AlertControl.Instance.ShowAlert("Dropped all glasses!", 2f);
+        }
+        else
+        {
+            NumGlasses += amount;
+            if (allowRiskyPickup && NumGlasses == maxGlasses)
+            {
+                AlertControl.Instance.ShowAlert(
+                    "WARNING: Trying to carry more glasses may result in dropping them.", 3.5f);
+            }
+        }
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
         Actions.OnGlasswareChanged(NumGlasses);
+    }
+
+    private bool MaybeDropGlassware()
+    {
+        int percentChanceOfDropping = 5 + (8 * (NumGlasses - maxGlasses));
+        return Random.Range(0, 100) < percentChanceOfDropping;
     }
 
     public void ChangePoopCount(int amount)

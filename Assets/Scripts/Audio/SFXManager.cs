@@ -15,6 +15,7 @@ public class SFXManager : MonoBehaviour
     [Header("Inventory Sounds")]
     [SerializeField] AudioClip pickUpClip;
     [SerializeField] AudioClip dropOffClip;
+    [SerializeField] AudioClip glassBreakingClip;
 
     [Header("Dog Sounds")]
     [SerializeField] AudioClip[] dogBarkClips;
@@ -112,6 +113,11 @@ public class SFXManager : MonoBehaviour
     public void PlayDogBreathing()
     {
         PlaySoundFXClip(dogBreathingClip, 0.65f);
+    }
+
+    public void PlayGlassBreaking()
+    {
+        PlaySoundFXClip(glassBreakingClip, 1f);
     }
 
     public void PlayTimerBeep()

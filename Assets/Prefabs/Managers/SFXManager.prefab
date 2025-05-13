@@ -49,6 +49,7 @@ MonoBehaviour:
   buttonToggleClip: {fileID: 8300000, guid: 846e746d46671af49a5ca4129f11ced3, type: 3}
   pickUpClip: {fileID: 8300000, guid: 0b560b22ab07dd34ba36a434a1ca13de, type: 3}
   dropOffClip: {fileID: 8300000, guid: f1dc53e36169b2a49bed7dec646da8a0, type: 3}
+  glassBreakingClip: {fileID: 8300000, guid: 2677cff297d91b846bfc684bd5270c53, type: 3}
   dogBarkClips:
   - {fileID: 8300000, guid: ed7e52d3fa814444bbfc1eda6caf8eb7, type: 3}
   - {fileID: 8300000, guid: 53c60e9cba7d7a446b36f160858707fa, type: 3}
