@@ -74,4 +74,10 @@ public class GameManager : MonoBehaviour
         GameMode = Mode.Score;
         SceneManager.LoadScene("Zone 2");
     }
+
+    public void LoadZones1and2()
+    {
+        GameMode = Mode.Score;
+        SceneManager.LoadScene("Zones 1&2");
+    }
 }

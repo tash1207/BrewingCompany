@@ -11,4 +11,9 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.Instance.LoadZone2();
     }
+
+    public void LoadZones1and2()
+    {
+        GameManager.Instance.LoadZones1and2();
+    }
 }
