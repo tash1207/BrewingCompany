@@ -49,9 +49,13 @@ public class GameManager : MonoBehaviour
     public void LoadStoryMode(int day)
     {
         GameMode = Mode.Story;
-        if (day >= 1)
+        if (day == 2)
         {
             SceneManager.LoadScene("Zone 2");
+        }
+        else if (day >= 3)
+        {
+            SceneManager.LoadScene("Zones 1&2");
         }
         else
         {

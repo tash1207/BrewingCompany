@@ -29,12 +29,12 @@ public class StoryModeManager : MonoBehaviour
     private void GrabValues()
     {
         CurrentDay = PlayerPrefs.GetInt(storySettingName, -1);
-        HasSavedStory = CurrentDay > 0;
+        HasSavedStory = CurrentDay > 1;
     }
 
     public void InitialStorySave()
     {
-        PlayerPrefs.SetInt(storySettingName, 0);
+        PlayerPrefs.SetInt(storySettingName, 1);
         GrabValues();
     }
 

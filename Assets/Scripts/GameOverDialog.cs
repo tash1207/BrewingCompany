@@ -24,7 +24,7 @@ public class GameOverDialog : MonoBehaviour
 
     private void SetStatusText(int score)
     {
-        if (StoryModeManager.Instance.CurrentDay == 1)
+        if (StoryModeManager.Instance.CurrentDay == 3)
         {
             continueButton.interactable = false;
             statusText.text = "You've reached the end of the demo!";
@@ -44,6 +44,7 @@ public class GameOverDialog : MonoBehaviour
             continueButton.interactable = false;
             return "That was terrible. You're fired.";
         }
+        // TODO: Set different threshholds for each level.
         if (score > 23)
         {
             return "Wow! Amazing work today! Thanks for picking up the dog poop.";

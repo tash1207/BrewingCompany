@@ -88,6 +88,14 @@ public class ObjectSpawner : MonoBehaviour
             SpawnBeer(5, 0f);
             SpawnBeer(6, 0.5f);
         }
+        if (tables.Count > 10)
+        {
+            SpawnBeer(7, 1f);
+            SpawnBeer(8, 0.5f);
+            SpawnBeer(11, 0f);
+            SpawnBeer(11, 0f);
+            SpawnBeer(11, 0f);
+        }
     }
 
     void SpawnRandomBeer()

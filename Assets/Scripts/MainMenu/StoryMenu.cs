@@ -45,7 +45,7 @@ public class StoryMenu : MonoBehaviour
     {
         // Overwrite old story.
         StoryModeManager.Instance.InitialStorySave();
-        currentDay = 0;
+        currentDay = StoryModeManager.Instance.CurrentDay;
         LoadStoryMode();
     }
 
