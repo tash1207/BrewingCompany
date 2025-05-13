@@ -56,27 +56,48 @@ public class BusTub : MonoBehaviour
             AlertControl.Instance.ShowAlert("Poop goes in the trash can, not the bus tub.");
             return;
         }
-
-        int clearedGlasses = inventory.ClearGlassware();
-        if (clearedGlasses > 0)
+        if (IsFull())
         {
-            totalGlassware += clearedGlasses;
-            Actions.OnGlasswareCleared(clearedGlasses);
-            AlertControl.Instance.ShowAlert(
-                "Cleared " + clearedGlasses +
-                (clearedGlasses == 1 ? " glass." : " glasses."), 2f);
-            UpdateBusTubDisplay();
+            AlertControl.Instance.ShowAlert("This bus tub is full.");
+            return;
+        }
+        if (inventory.NumGlasses == 0)
+        {
+            AlertControl.Instance.ShowAlert("I can bring empty glasses here.");
+            return;
+        }
+
+        ClearGlassware(inventory);
+    }
+
+    private void ClearGlassware(PlayerInventory inventory)
+    {
+        int clearedGlasses;
+        if (totalGlassware + inventory.NumGlasses > maxGlassware)
+        {
+            clearedGlasses = inventory.ClearGlassware(maxGlassware - totalGlassware);
         }
         else
         {
-            AlertControl.Instance.ShowAlert("I can bring empty glasses here.");
+            clearedGlasses = inventory.ClearAllGlassware();
         }
+        totalGlassware += clearedGlasses;
+        Actions.OnGlasswareCleared(clearedGlasses);
+        AlertControl.Instance.ShowAlert(
+            "Cleared " + clearedGlasses +
+            (clearedGlasses == 1 ? " glass." : " glasses."), 2f);
+        UpdateBusTubDisplay();
     }
 
     private void UpdateBusTubDisplay()
     {
         statusText.text = totalGlassware + " / " + maxGlassware;
         ShowBussedGlasses();
+    }
+
+    private bool IsFull()
+    {
+        return totalGlassware == maxGlassware;
     }
 
     private void ShowBussedGlasses()

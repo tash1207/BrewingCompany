@@ -113,12 +113,17 @@ public class PlayerInventory : MonoBehaviour
         return NumGlasses >= maxGlasses;
     }
 
-    public int ClearGlassware()
+    public int ClearGlassware(int amount)
     {
-        int glassesCleared = NumGlasses;
-        NumGlasses = 0;
+        int glassesCleared = amount;
+        NumGlasses -= amount;
         Actions.OnGlasswareChanged(NumGlasses);
         return glassesCleared;
+    }
+
+    public int ClearAllGlassware()
+    {
+        return ClearGlassware(NumGlasses);
     }
 
     public int ClearPoops()
