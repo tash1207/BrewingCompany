@@ -20,10 +20,12 @@ public class PauseControl : MonoBehaviour
     public void PauseGame()
     {
         GameIsPaused = true;
+        Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
         GameIsPaused = false;
+        Time.timeScale = 1;
     }
 }

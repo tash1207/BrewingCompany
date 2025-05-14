@@ -26,8 +26,10 @@ public class ExpManager : MonoBehaviour
 
     void Start()
     {
-        Actions.OnExpChanged(this);
-        Actions.OnLevelChanged(Level);
+        if (GameManager.Instance.IsStoryMode())
+        {
+            Actions.OnExpChanged(this);
+        }
     }
 
     void OnEnable()
@@ -53,13 +55,16 @@ public class ExpManager : MonoBehaviour
 
     public void GainExperience(int amount)
     {
-        CurrentExp += amount;
-        if (CurrentExp >= ExpToNextLevel)
+        if (GameManager.Instance.IsStoryMode())
         {
-            LevelUp();
-        }
+            CurrentExp += amount;
+            if (CurrentExp >= ExpToNextLevel)
+            {
+                LevelUp();
+            }
 
-        Actions.OnExpChanged(this);
+            Actions.OnExpChanged(this);
+        }
     }
 
     private void LevelUp()

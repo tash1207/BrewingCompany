@@ -29,14 +29,13 @@ public class GameManager : MonoBehaviour
 
     void Initialize()
     {
-        switch (SceneManager.GetActiveScene().buildIndex)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            case 0:
-                GameMode = Mode.Menu;
-                break;
-            case 1:
-                GameMode = Mode.Score;
-                break;
+            GameMode = Mode.Menu;
+        }
+        else
+        {
+            GameMode = Mode.Score;
         }
     }
 

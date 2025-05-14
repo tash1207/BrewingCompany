@@ -11,7 +11,7 @@ public class HUD : MonoBehaviour
 
     [SerializeField] GameObject expSlider;
 
-    void Start()
+    void Awake()
     {
         if (GameManager.Instance.IsStoryMode())
         {

@@ -5,6 +5,7 @@ public class StatsManager : MonoBehaviour
     public static StatsManager Instance { get; private set; }
 
     public int MaxGlasses = 5;
+    public bool AllowRiskyPickup = false;
 
     void Awake()
     {
@@ -17,6 +18,14 @@ public class StatsManager : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        if (GameManager.Instance.IsStoryMode())
+        {
+            SetStatsForLevel(ExpManager.Instance.Level);
+        }
+    }
+
     void OnEnable()
     {
         Actions.OnLevelChanged += LevelChanged;
@@ -27,12 +36,26 @@ public class StatsManager : MonoBehaviour
         Actions.OnLevelChanged -= LevelChanged;
     }
 
-    private void LevelChanged(int level)
+    private void SetStatsForLevel(int level)
     {
-        // TODO: Figure out what the stats to level relationship is.
         if (level >= 1)
         {
             MaxGlasses = 6;
         }
+        if (level >= 2)
+        {
+            AllowRiskyPickup = true;
+        }
+    }
+
+    private void LevelChanged(int level)
+    {
+        SetStatsForLevel(level);
+        ShowLevelUpDialog(level);
+    }
+
+    private void ShowLevelUpDialog(int level)
+    {
+        LevelUpManager.Instance.ShowLevelUpDialog(level);
     }
 }
