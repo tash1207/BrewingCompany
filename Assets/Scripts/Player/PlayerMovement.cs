@@ -30,15 +30,15 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
-        Actions.OnLevelStarted += ResumePlayerMovement;
-        Actions.OnLevelEnded += PausePlayerMovement;
+        Actions.OnLevelResumed += ResumePlayerMovement;
+        Actions.OnLevelPaused += PausePlayerMovement;
         Actions.ResetLevel += ResetPlayerPosition;
     }
 
     void OnDisable()
     {
-        Actions.OnLevelStarted -= ResumePlayerMovement;
-        Actions.OnLevelEnded -= PausePlayerMovement;
+        Actions.OnLevelResumed -= ResumePlayerMovement;
+        Actions.OnLevelPaused -= PausePlayerMovement;
         Actions.ResetLevel -= ResetPlayerPosition;
     }
 

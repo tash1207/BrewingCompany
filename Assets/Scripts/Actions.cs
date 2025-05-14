@@ -6,6 +6,8 @@ public static class Actions
     // Game
     public static Action OnLevelStarted;
     public static Action OnLevelEnded;
+    public static Action OnLevelPaused;
+    public static Action OnLevelResumed;
     public static Action ResetLevel;
 
     // Inventory

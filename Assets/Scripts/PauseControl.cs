@@ -21,11 +21,13 @@ public class PauseControl : MonoBehaviour
     {
         GameIsPaused = true;
         Time.timeScale = 0;
+        Actions.OnLevelPaused();
     }
 
     public void ResumeGame()
     {
         GameIsPaused = false;
         Time.timeScale = 1;
+        Actions.OnLevelResumed();
     }
 }

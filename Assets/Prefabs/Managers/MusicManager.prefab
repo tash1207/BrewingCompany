@@ -143,4 +143,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 5380368119425334726}
   inGameMusic: {fileID: 8300000, guid: db5aae116f4e3c946b97b5d503eab8ae, type: 3}
-  gameMenuMusic: {fileID: 8300000, guid: f3b4e648f718ee04f8cf1cc9dc38e24d, type: 3}
+  pausedGameMusic: {fileID: 8300000, guid: f69a7a387ebcf5b4fba71611892bcf20, type: 3}

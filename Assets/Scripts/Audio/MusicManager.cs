@@ -4,8 +4,10 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip inGameMusic;
+    [SerializeField] AudioClip pausedGameMusic;
 
     private bool shouldPlayMusic;
+    private float inGameMusicTimestamp;
 
     void Start()
     {
@@ -17,16 +19,16 @@ public class MusicManager : MonoBehaviour
     {
         Actions.OnBackgroundMusicToggled += ToggleBackgroundMusic;
 
-        Actions.OnLevelStarted += PlayInGameMusic;
-        //Actions.OnLevelEnded += StopMusic;
+        Actions.OnLevelResumed += PlayInGameMusic;
+        Actions.OnLevelPaused += PauseMusic;
     }
 
     void OnDisable()
     {
         Actions.OnBackgroundMusicToggled -= ToggleBackgroundMusic;
 
-        Actions.OnLevelStarted -= PlayInGameMusic;
-        //Actions.OnLevelEnded -= StopMusic;
+        Actions.OnLevelResumed -= PlayInGameMusic;
+        Actions.OnLevelPaused -= PauseMusic;
     }
 
     private void MaybePlayMusic()
@@ -50,11 +52,20 @@ public class MusicManager : MonoBehaviour
     private void PlayInGameMusic()
     {
         audioSource.clip = inGameMusic;
+        audioSource.time = inGameMusicTimestamp;
         MaybePlayMusic();
     }
 
-    private void StopMusic()
+    private void PlayPauseMusic()
     {
-        audioSource.Stop();
+        audioSource.clip = pausedGameMusic;
+        MaybePlayMusic();
+    }
+
+    private void PauseMusic()
+    {
+        audioSource.Pause();
+        inGameMusicTimestamp = audioSource.time;
+        PlayPauseMusic();
     }
 }
