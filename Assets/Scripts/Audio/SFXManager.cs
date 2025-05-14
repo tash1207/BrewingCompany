@@ -37,7 +37,6 @@ public class SFXManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()
@@ -138,7 +137,7 @@ public class SFXManager : MonoBehaviour
 
     IEnumerator ReturnAudioSourceToPool(AudioSource audioSource)
     {
-        yield return new WaitForSeconds(audioSource.clip.length);
+        yield return new WaitForSecondsRealtime(audioSource.clip.length);
         objectPool.Release(audioSource);
     }
 }

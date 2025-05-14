@@ -21,8 +21,6 @@ public class StoryModeManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         GrabValues();
     }
 

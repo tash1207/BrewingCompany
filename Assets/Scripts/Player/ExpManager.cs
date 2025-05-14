@@ -20,8 +20,14 @@ public class ExpManager : MonoBehaviour
             return;
         }
 
-        InitializeValues();
         Instance = this;
+        InitializeValues();
+    }
+
+    void Start()
+    {
+        Actions.OnExpChanged(this);
+        Actions.OnLevelChanged(Level);
     }
 
     void OnEnable()
@@ -43,9 +49,6 @@ public class ExpManager : MonoBehaviour
         Level = PlayerPrefs.GetInt(levelPref, 0);
         CurrentExp = PlayerPrefs.GetInt(expPref, 0);
         ExpToNextLevel = (Level + 1) * expBetweenLevels;
-        
-        Actions.OnExpChanged(this);
-        Actions.OnLevelChanged(Level);
     }
 
     public void GainExperience(int amount)
