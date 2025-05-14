@@ -80,4 +80,9 @@ public class GameManager : MonoBehaviour
         GameMode = Mode.Score;
         SceneManager.LoadScene("Zones 1&2");
     }
+
+    public bool IsStoryMode()
+    {
+        return GameMode == Mode.Story;
+    }
 }

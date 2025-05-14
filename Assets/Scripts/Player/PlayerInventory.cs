@@ -5,7 +5,6 @@ public class PlayerInventory : MonoBehaviour
     public int NumGlasses { get; private set; }
     public int NumPoops { get; private set; }
 
-    private int maxGlasses = 5;
     private bool allowRiskyPickup = false;
 
     void OnEnable()
@@ -46,7 +45,8 @@ public class PlayerInventory : MonoBehaviour
     {
         if (!allowRiskyPickup && IsCarryingMaxGlassware())
         {
-            AlertControl.Instance.ShowAlert("Already carrying 5 glasses.", 2f);
+            AlertControl.Instance.ShowAlert(
+                "Already carrying " + StatsManager.Instance.MaxGlasses + " glasses.", 2f);
             return;
         }
         if (beerGlass.PickUp(this))
@@ -75,7 +75,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             NumGlasses += amount;
-            if (allowRiskyPickup && NumGlasses == maxGlasses)
+            if (allowRiskyPickup && NumGlasses == StatsManager.Instance.MaxGlasses)
             {
                 AlertControl.Instance.ShowAlert(
                     "WARNING: Trying to carry more glasses may result in dropping them.", 3.5f);
@@ -87,7 +87,7 @@ public class PlayerInventory : MonoBehaviour
 
     private bool MaybeDropGlassware()
     {
-        int percentChanceOfDropping = 5 + (8 * (NumGlasses - maxGlasses));
+        int percentChanceOfDropping = 5 + (8 * (NumGlasses - StatsManager.Instance.MaxGlasses));
         return Random.Range(0, 100) < percentChanceOfDropping;
     }
 
@@ -110,7 +110,7 @@ public class PlayerInventory : MonoBehaviour
 
     public bool IsCarryingMaxGlassware()
     {
-        return NumGlasses >= maxGlasses;
+        return NumGlasses >= StatsManager.Instance.MaxGlasses;
     }
 
     public int ClearGlassware(int amount)

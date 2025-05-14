@@ -24,7 +24,7 @@ public class GameOverDialog : MonoBehaviour
 
     private void SetStatusText(int score)
     {
-        if (StoryModeManager.Instance.CurrentDay == 3)
+        if (StoryModeManager.Instance.CurrentDay >= 3)
         {
             continueButton.interactable = false;
             statusText.text = "You've reached the end of the demo!";

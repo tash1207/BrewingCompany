@@ -9,6 +9,16 @@ public class HUD : MonoBehaviour
     [SerializeField] GameObject poopDisplay;
     [SerializeField] TMP_Text poopCount;
 
+    [SerializeField] GameObject expSlider;
+
+    void Start()
+    {
+        if (GameManager.Instance.IsStoryMode())
+        {
+            expSlider.SetActive(true);
+        }
+    }
+
     void OnEnable()
     {
         Actions.OnGlasswareChanged += UpdateGlassware;

@@ -16,6 +16,10 @@ public static class Actions
     // Player Display Options
     public static Action<PlayerDisplayOptions.Shirt> OnChooseShirt;
 
+    // Player Stats
+    public static Action<ExpManager> OnExpChanged;
+    public static Action<int> OnLevelChanged;
+
     // Score
     public static Action<int> OnGlasswareCleared;
     public static Action<int> OnPoopsThrownAway;
