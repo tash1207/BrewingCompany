@@ -29,6 +29,9 @@ public static class Actions
     // Settings
     public static Action<bool> OnBackgroundMusicToggled;
 
+    // Story
+    public static Action OnStartNewStory;
+
     // UI
     public static Action OnButtonClicked;
     public static Action OnButtonToggled;

@@ -22,11 +22,13 @@ public class PlayerDisplayOptions : MonoBehaviour
 
     void OnEnable()
     {
+        Actions.OnStartNewStory += ResetValues;
         Actions.OnChooseShirt += ChooseShirt;
     }
 
     void OnDisable()
     {
+        Actions.OnStartNewStory -= ResetValues;
         Actions.OnChooseShirt -= ChooseShirt;
     }
 
@@ -58,6 +60,15 @@ public class PlayerDisplayOptions : MonoBehaviour
                 newShirt = yellowShirt;
                 break;
         }
-        spriteLibrary.spriteLibraryAsset = newShirt;
+
+        if (spriteLibrary != null)
+        {
+            spriteLibrary.spriteLibraryAsset = newShirt;
+        }
+    }
+
+    private void ResetValues()
+    {
+        PlayerPrefs.SetInt(shirtSettingName, -1);
     }
 }

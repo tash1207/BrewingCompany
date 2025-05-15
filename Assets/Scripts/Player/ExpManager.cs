@@ -34,6 +34,7 @@ public class ExpManager : MonoBehaviour
 
     void OnEnable()
     {
+        Actions.OnStartNewStory += ResetValues;
         Actions.OnGlasswareCleared += GainExperience;
         Actions.OnPoopsThrownAway += GainExperience;
         Actions.OnLevelEnded += SaveValues;
@@ -41,6 +42,7 @@ public class ExpManager : MonoBehaviour
 
     void OnDisable()
     {
+        Actions.OnStartNewStory -= ResetValues;
         Actions.OnGlasswareCleared -= GainExperience;
         Actions.OnPoopsThrownAway -= GainExperience;
         Actions.OnLevelEnded -= SaveValues;
@@ -85,5 +87,6 @@ public class ExpManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(levelPref, 0);
         PlayerPrefs.SetInt(expPref, 0);
+        InitializeValues();
     }
 }

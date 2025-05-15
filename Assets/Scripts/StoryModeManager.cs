@@ -10,7 +10,7 @@ public class StoryModeManager : MonoBehaviour
     public int MinimumScoreToNotFailDay = 5;
 
     // TODO: Don't use prefs for story mode save content.
-    private const string storySettingName = "StoryCurrentDay";
+    private const string currentDaySettingName = "StoryCurrentDay";
 
     void Awake()
     {
@@ -24,22 +24,32 @@ public class StoryModeManager : MonoBehaviour
         GrabValues();
     }
 
+    void OnEnable()
+    {
+        Actions.OnStartNewStory += InitialStorySave;
+    }
+
+    void OnDisable()
+    {
+        Actions.OnStartNewStory -= InitialStorySave;
+    }
+
     private void GrabValues()
     {
-        CurrentDay = PlayerPrefs.GetInt(storySettingName, -1);
+        CurrentDay = PlayerPrefs.GetInt(currentDaySettingName, -1);
         HasSavedStory = CurrentDay > 1;
     }
 
     public void InitialStorySave()
     {
-        PlayerPrefs.SetInt(storySettingName, 1);
+        PlayerPrefs.SetInt(currentDaySettingName, 1);
         GrabValues();
     }
 
     public void IncrementCurrentDay()
     {
         CurrentDay++;
-        PlayerPrefs.SetInt(storySettingName, CurrentDay);
+        PlayerPrefs.SetInt(currentDaySettingName, CurrentDay);
         GrabValues();
     }
 }
