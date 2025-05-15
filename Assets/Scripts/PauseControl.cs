@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseControl : MonoBehaviour
 {
     public static PauseControl Instance { get; private set; }
 
     public bool GameIsPaused { get; private set; }
+
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject resumeButton;
+
+    private bool showingPauseMenu;
 
     void Awake()
     {
@@ -15,6 +21,41 @@ public class PauseControl : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    void OnEnable()
+    {
+        Actions.TogglePauseMenu += OnTogglePauseMenu;
+    }
+
+    void OnDisable()
+    {
+        Actions.TogglePauseMenu -= OnTogglePauseMenu;
+    }
+
+    void OnTogglePauseMenu()
+    {
+        if (GameIsPaused && !showingPauseMenu) { return; }
+
+        if (showingPauseMenu)
+            HidePauseMenu();
+        else
+            ShowPauseMenu();
+    }
+
+    public void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(resumeButton);
+        showingPauseMenu = true;
+        PauseGame();
+    }
+
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+        showingPauseMenu = false;
+        ResumeGame();
     }
 
     public void PauseGame()

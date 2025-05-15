@@ -1276,6 +1276,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2210483503000740238}
     - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3772224997857878496}
+    - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -1289,7 +1293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadMainMenu
+      value: PauseButton
       objectReference: {fileID: 0}
     - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1297,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: LevelManager, Assembly-CSharp
+      value: HUD, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1486732891710606768, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1389,11 +1393,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6896435159322026272, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_text
-      value: back to menu
+      value: pause
       objectReference: {fileID: 0}
     - target: {fileID: 7476480796857473026, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_Name
-      value: MenuButton
+      value: PauseButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

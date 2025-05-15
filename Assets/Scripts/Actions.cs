@@ -8,6 +8,7 @@ public static class Actions
     public static Action OnLevelEnded;
     public static Action OnLevelPaused;
     public static Action OnLevelResumed;
+    public static Action TogglePauseMenu;
     public static Action ResetLevel;
 
     // Inventory

@@ -85,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void OnPause(InputValue value)
+    {
+        Actions.TogglePauseMenu();
+    }
+
     public void PausePlayerMovement()
     {
         rb2d.velocity = Vector2.zero;

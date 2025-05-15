@@ -33,6 +33,11 @@ public class HUD : MonoBehaviour
         Actions.ResetLevel -= ResetState;
     }
 
+    public void PauseButton()
+    {
+        Actions.TogglePauseMenu();
+    }
+
     void UpdateGlassware(int totalGlassware)
     {
         HideDisplays();
