@@ -68,11 +68,8 @@ public class SFXManager : MonoBehaviour
         Actions.OnItemPickedUp += (obj) => {
             PlaySoundFXClip(pickUpClip, 1f);
         };
-        Actions.OnGlasswareCleared += (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
-        };
         Actions.OnPoopsThrownAway += (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
+            PlayDropOffClip();
         };
 
         Actions.OnButtonClicked += () => {
@@ -88,11 +85,8 @@ public class SFXManager : MonoBehaviour
         Actions.OnItemPickedUp -= (obj) => {
             PlaySoundFXClip(pickUpClip, 1f);
         };
-        Actions.OnGlasswareCleared -= (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
-        };
         Actions.OnPoopsThrownAway -= (obj) => {
-            PlaySoundFXClip(dropOffClip, 0.7f);
+            PlayDropOffClip();
         };
 
         Actions.OnButtonClicked -= () => {
@@ -101,6 +95,11 @@ public class SFXManager : MonoBehaviour
         Actions.OnButtonToggled -= () => {
             PlaySoundFXClip(buttonToggleClip, 1f);
         };
+    }
+
+    public void PlayDropOffClip()
+    {
+        PlaySoundFXClip(dropOffClip, 0.7f);
     }
 
     public void PlayDogBark()

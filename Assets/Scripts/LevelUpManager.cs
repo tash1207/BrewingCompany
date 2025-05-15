@@ -26,13 +26,16 @@ public class LevelUpManager : MonoBehaviour
         switch (level)
         {
             case 1:
-                text = "Max glassware increased to " + StatsManager.Instance.MaxGlasses + ".";
+                text = "Max glassware increased to " + SkillsManager.Instance.MaxGlasses + ".";
                 break;
             case 2:
                 text = "Ability to attempt to pick up more glasses than max glassware " +
-                    " (at risk of dropping all of them).";
+                    "(at risk of dropping all of them).";
                 break;
             case 3:
+                text = "Ability to pick up the bus tub and put glasses directly into it.";
+                break;
+            case 4:
                 //"Lower chance of dropping all glasses when attempting to carry more than max."
                 break;
             default:

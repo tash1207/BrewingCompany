@@ -14,6 +14,7 @@ public static class Actions
     // Inventory
     public static Action<GameObject> OnItemPickedUp;
     public static Action<int> OnGlasswareChanged;
+    public static Action<int> OnBusTubGlasswareCountChanged;
     public static Action<int> OnPoopCountChanged;
 
     // Player Display Options

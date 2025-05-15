@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class StatsManager : MonoBehaviour
+public class SkillsManager : MonoBehaviour
 {
-    public static StatsManager Instance { get; private set; }
+    public static SkillsManager Instance { get; private set; }
 
     public int MaxGlasses = 5;
     public bool AllowRiskyPickup = false;
+    public bool AllowBusTubPickup = false;
 
     void Awake()
     {
@@ -45,6 +46,10 @@ public class StatsManager : MonoBehaviour
         if (level >= 2)
         {
             AllowRiskyPickup = true;
+        }
+        if (level >= 3)
+        {
+            AllowBusTubPickup = true;
         }
     }
 

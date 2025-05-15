@@ -6,6 +6,9 @@ public class HUD : MonoBehaviour
     [SerializeField] GameObject beerDisplay;
     [SerializeField] TMP_Text beerCount;
 
+    [SerializeField] GameObject busTubDisplay;
+    [SerializeField] TMP_Text busTubGlasswareCount;
+
     [SerializeField] GameObject poopDisplay;
     [SerializeField] TMP_Text poopCount;
 
@@ -13,7 +16,8 @@ public class HUD : MonoBehaviour
 
     void Awake()
     {
-        if (GameManager.Instance.IsStoryMode())
+        if (GameManager.Instance != null &&
+            GameManager.Instance.IsStoryMode())
         {
             expSlider.SetActive(true);
         }
@@ -22,6 +26,7 @@ public class HUD : MonoBehaviour
     void OnEnable()
     {
         Actions.OnGlasswareChanged += UpdateGlassware;
+        Actions.OnBusTubGlasswareCountChanged += UpdateBusTubGlasswareCount;
         Actions.OnPoopCountChanged += UpdatePoopCount;
         Actions.ResetLevel += ResetState;
     }
@@ -29,6 +34,7 @@ public class HUD : MonoBehaviour
     void OnDisable()
     {
         Actions.OnGlasswareChanged -= UpdateGlassware;
+        Actions.OnBusTubGlasswareCountChanged -= UpdateBusTubGlasswareCount;
         Actions.OnPoopCountChanged -= UpdatePoopCount;
         Actions.ResetLevel -= ResetState;
     }
@@ -45,6 +51,13 @@ public class HUD : MonoBehaviour
         beerCount.text = totalGlassware.ToString();
     }
 
+    void UpdateBusTubGlasswareCount(int totalBusTubGlassware)
+    {
+        HideDisplays();
+        busTubDisplay.SetActive(true);
+        busTubGlasswareCount.text = totalBusTubGlassware.ToString() + " / 25";
+    }
+
     void UpdatePoopCount(int totalPoops)
     {
         HideDisplays();
@@ -55,6 +68,7 @@ public class HUD : MonoBehaviour
     void HideDisplays()
     {
         beerDisplay.SetActive(false);
+        busTubDisplay.SetActive(false);
         poopDisplay.SetActive(false);
     }
 
