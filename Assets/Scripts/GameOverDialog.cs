@@ -44,18 +44,78 @@ public class GameOverDialog : MonoBehaviour
             continueButton.interactable = false;
             return "That was terrible. You're fired.";
         }
-        // TODO: Set different threshholds for each level.
-        if (score > 23)
+
+        if (score >= GetScoreThresholdForGreatJob())
         {
-            return "Wow! Amazing work today! Thanks for picking up the dog poop.";
+            return GetTextForGreatJob();
         }
-        else if (score > 11)
+        else if (score >= GetScoreThresholdForGoodJob())
         {
-            return "Solid work today! See you tomorrow!";
+            return GetTextForGoodJob();
         }
         else
         {
             return "Good job today, but we'd like to see you speed up a bit.";
+        }
+    }
+
+    private int GetScoreThresholdForGreatJob()
+    {
+        switch (StoryModeManager.Instance.CurrentDay)
+        {
+            case 1:
+                return 23;
+            case 2:
+                return 31;
+            case 3:
+                return 50;
+            default:
+                return 23;
+        }
+    }
+
+    private int GetScoreThresholdForGoodJob()
+    {
+        switch (StoryModeManager.Instance.CurrentDay)
+        {
+            case 1:
+                return 11;
+            case 2:
+                return 20;
+            case 3:
+                return 38;
+            default:
+                return 11;
+        }
+    }
+
+    private string GetTextForGreatJob()
+    {
+        switch (StoryModeManager.Instance.CurrentDay)
+        {
+            case 1:
+                return "Wow! Amazing work today! Thanks for picking up the dog poop.";
+            case 2:
+                return "Wow! Amazing work today!";
+            case 3:
+                return "Wow! Amazing work today!";
+            default:
+                return "Wow! Amazing work today!";
+        }
+    }
+
+    private string GetTextForGoodJob()
+    {
+        switch (StoryModeManager.Instance.CurrentDay)
+        {
+            case 1:
+                return "Solid first day! See you tomorrow!";
+            case 2:
+                return "Solid work today! See you tomorrow!";
+            case 3:
+                return "Solid work today!";
+            default:
+                return "Solid work today!";
         }
     }
 }

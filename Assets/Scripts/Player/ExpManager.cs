@@ -7,7 +7,7 @@ public class ExpManager : MonoBehaviour
     public int Level { get; private set; }
     public int CurrentExp { get; private set; }
     public int ExpToNextLevel { get; private set; }
-    private int expBetweenLevels = 15;
+    private int expBetweenLevels = 12;
 
     private const string levelPref = "PlayerLevel";
     private const string expPref = "PlayerExp";
