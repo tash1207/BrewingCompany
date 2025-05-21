@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         if (isPaused) { return; }
-        
+
         rb2d.velocity = moveInput * moveSpeed;
     }
 
@@ -60,13 +60,13 @@ public class PlayerMovement : MonoBehaviour
             lookDirection.Set(moveInput.x, moveInput.y);
             lookDirection.Normalize();
 
-            animator.SetBool("isWalking", true);
+            SetWalkingAnimation(true);
             animator.SetFloat("LookX", lookDirection.x);
             animator.SetFloat("LookY", lookDirection.y);
         }
         else
         {
-            animator.SetBool("isWalking", false);
+            SetWalkingAnimation(false);
         }
     }
 
@@ -94,7 +94,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         moveInput = Vector2.zero;
-        animator.SetBool("isWalking", false);
+        SetWalkingAnimation(false);
+
         isPaused = true;
     }
 
@@ -109,5 +110,14 @@ public class PlayerMovement : MonoBehaviour
         lookDirection.Set(0, -1);
         animator.SetFloat("LookX", lookDirection.x);
         animator.SetFloat("LookY", lookDirection.y);
+    }
+
+    private void SetWalkingAnimation(bool value)
+    {
+        animator.SetBool("Body_Walk", value);
+        animator.SetBool("Legs_Walk", value);
+
+        animator.SetBool("Body_Idle", !value);
+        animator.SetBool("Legs_Idle", !value);
     }
 }
