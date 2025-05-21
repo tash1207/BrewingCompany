@@ -60,13 +60,13 @@ public class PlayerMovement : MonoBehaviour
             lookDirection.Set(moveInput.x, moveInput.y);
             lookDirection.Normalize();
 
-            // animator.SetBool("isWalking", true);
+            animator.SetBool("isWalking", true);
             animator.SetFloat("LookX", lookDirection.x);
             animator.SetFloat("LookY", lookDirection.y);
         }
         else
         {
-            // animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
         }
     }
 
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         moveInput = Vector2.zero;
-        // animator.SetBool("isWalking", false);
+        animator.SetBool("isWalking", false);
         isPaused = true;
     }
 
