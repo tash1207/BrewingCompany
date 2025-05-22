@@ -4693,7 +4693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1524150896}
-  elementToSelect: {fileID: 982925401}
+  elementToSelect: {fileID: 1501958943}
   showVisualization: 0
 --- !u!1 &912287766
 GameObject:
@@ -4729,8 +4729,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 87.5}
-  m_SizeDelta: {x: -50, y: -225}
+  m_AnchoredPosition: {x: 0, y: 75}
+  m_SizeDelta: {x: -100, y: -250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &912287768
 MonoBehaviour:
@@ -5166,6 +5166,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5204,6 +5216,10 @@ PrefabInstance:
     - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177040733335324144, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6896435159322026272, guid: 4e3d414e32a233b48a5146569dfdc766, type: 3}
       propertyPath: m_text
@@ -5279,8 +5295,8 @@ RectTransform:
   - {fileID: 982925399}
   m_Father: {fileID: 1231501482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3, y: 0.2}
-  m_AnchorMax: {x: 0.7, y: 0.8}
+  m_AnchorMin: {x: 0.3, y: 0.18}
+  m_AnchorMax: {x: 0.7, y: 0.82}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7494,7 +7510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1524150896}
-  elementToSelect: {fileID: 982925401}
+  elementToSelect: {fileID: 1501958943}
   showVisualization: 0
 --- !u!1 &1699984399
 GameObject:
