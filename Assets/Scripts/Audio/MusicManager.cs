@@ -9,6 +9,9 @@ public class MusicManager : MonoBehaviour
     private bool shouldPlayMusic;
     private float inGameMusicTimestamp;
 
+    private float inGameMusicVolume = 0.5f;
+    private float pausedMusicVolume = 0.33f;
+
     void Start()
     {
         shouldPlayMusic = SettingsManager.Instance.GetValue(SettingsManager.SettingItem.Music);
@@ -54,6 +57,7 @@ public class MusicManager : MonoBehaviour
         TrackCurrentTimestamp();
         audioSource.clip = inGameMusic;
         audioSource.time = inGameMusicTimestamp;
+        audioSource.volume = inGameMusicVolume;
         MaybePlayMusic();
     }
 
@@ -62,6 +66,7 @@ public class MusicManager : MonoBehaviour
         TrackCurrentTimestamp();
         audioSource.clip = pausedGameMusic;
         audioSource.time = inGameMusicTimestamp;
+        audioSource.volume = pausedMusicVolume;
         MaybePlayMusic();
     }
 
