@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Animator animatorDown;
     [SerializeField] Animator animatorSide;
+    [SerializeField] Animator animatorUp;
     [SerializeField] PlayerInventory playerInventory;
 
-    private Animator activeAnimator;
     private Rigidbody2D rb2d;
     private Vector2 moveInput;
     private float moveSpeed = 3.5f;
@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private SpriteRenderer rendererDown;
     private SpriteRenderer rendererSide;
+    private SpriteRenderer rendererUp;
 
     private bool isPaused;
 
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rendererDown = animatorDown.gameObject.GetComponent<SpriteRenderer>();
         rendererSide = animatorSide.gameObject.GetComponent<SpriteRenderer>();
+        rendererUp = animatorUp.gameObject.GetComponent<SpriteRenderer>();
         SetActiveRenderer(lookDirection);
 
         rb2d = GetComponent<Rigidbody2D>();
@@ -85,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (isPaused) { return; }
 
         RaycastHit2D hit = Physics2D.Raycast(
-            new Vector2(transform.position.x, transform.position.y + 0.75f),
+            new Vector2(transform.position.x, transform.position.y + 1.1f),
             lookDirection,
             interactionDistance,
             LayerMask.GetMask("Interactable"));
@@ -136,6 +138,12 @@ public class PlayerMovement : MonoBehaviour
 
         animatorSide.SetBool("Body_Idle", !value);
         animatorSide.SetBool("Legs_Idle", !value);
+
+        animatorUp.SetBool("Body_Walk", value);
+        animatorUp.SetBool("Legs_Walk", value);
+
+        animatorUp.SetBool("Body_Idle", !value);
+        animatorUp.SetBool("Legs_Idle", !value);
     }
 
     private void SetActiveRenderer(Vector2 direction)
@@ -143,18 +151,27 @@ public class PlayerMovement : MonoBehaviour
         if (direction.x == 0 && direction.y == -1)
         {
             rendererSide.enabled = false;
+            rendererUp.enabled = false;
             rendererDown.enabled = true;
         }
         else if (direction.x != 0)
         {
             rendererSide.flipX = direction.x < 0;
             rendererDown.enabled = false;
+            rendererUp.enabled = false;
             rendererSide.enabled = true;
+        }
+        else if (direction.x == 0 && direction.y == 1)
+        {
+            rendererDown.enabled = false;
+            rendererSide.enabled = false;
+            rendererUp.enabled = true;
         }
         else
         {
             // Default position.
             rendererSide.enabled = false;
+            rendererUp.enabled = false;
             rendererDown.enabled = true;
         }
     }
