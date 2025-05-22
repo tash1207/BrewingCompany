@@ -487,14 +487,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.03137255, g: 0.17254902, b: 0.03137255, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 206646755, guid: c4db74c0acdf6da4ab858d2be5615d7c, type: 3}
+  m_Sprite: {fileID: 1200816713, guid: 5ba29595aa0f1ad459d2418ded12fcf8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7330,14 +7330,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6117647, g: 0.5882353, b: 0.12941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 287737250, guid: c4db74c0acdf6da4ab858d2be5615d7c, type: 3}
+  m_Sprite: {fileID: 1200816713, guid: 5ba29595aa0f1ad459d2418ded12fcf8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7877,6 +7877,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7430155849219210918, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
+      propertyPath: m_labelHash
+      value: 8.550614e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430155849219210918, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
+      propertyPath: m_SpriteHash
+      value: 276938008
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945503466003415057, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 36252550, guid: fc45cacc0eed1054caef82f71c594092, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

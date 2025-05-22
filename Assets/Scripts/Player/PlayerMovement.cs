@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Animator animator;
+    [SerializeField] Animator animatorDown;
+    [SerializeField] Animator animatorSide;
     [SerializeField] PlayerInventory playerInventory;
 
+    private Animator activeAnimator;
     private Rigidbody2D rb2d;
     private Vector2 moveInput;
     private float moveSpeed = 3.5f;
@@ -15,10 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lookDirection = new Vector2(0, -1);
     private float interactionDistance = 1.3f;
 
+    private SpriteRenderer rendererDown;
+    private SpriteRenderer rendererSide;
+
     private bool isPaused;
 
     void Awake()
     {
+        rendererDown = animatorDown.gameObject.GetComponent<SpriteRenderer>();
+        rendererSide = animatorSide.gameObject.GetComponent<SpriteRenderer>();
+        SetActiveRenderer(lookDirection);
+
         rb2d = GetComponent<Rigidbody2D>();
         PausePlayerMovement();
     }
@@ -59,10 +68,11 @@ public class PlayerMovement : MonoBehaviour
         {
             lookDirection.Set(moveInput.x, moveInput.y);
             lookDirection.Normalize();
+            SetActiveRenderer(lookDirection);
 
             SetWalkingAnimation(true);
-            animator.SetFloat("LookX", lookDirection.x);
-            animator.SetFloat("LookY", lookDirection.y);
+            // animatorDown.SetFloat("LookX", lookDirection.x);
+            // animatorDown.SetFloat("LookY", lookDirection.y);
         }
         else
         {
@@ -108,16 +118,44 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = initialPosition;
         lookDirection.Set(0, -1);
-        animator.SetFloat("LookX", lookDirection.x);
-        animator.SetFloat("LookY", lookDirection.y);
+        SetActiveRenderer(lookDirection);
+        // animatorDown.SetFloat("LookX", lookDirection.x);
+        // animatorDown.SetFloat("LookY", lookDirection.y);
     }
 
     private void SetWalkingAnimation(bool value)
     {
-        animator.SetBool("Body_Walk", value);
-        animator.SetBool("Legs_Walk", value);
+        animatorDown.SetBool("Body_Walk", value);
+        animatorDown.SetBool("Legs_Walk", value);
 
-        animator.SetBool("Body_Idle", !value);
-        animator.SetBool("Legs_Idle", !value);
+        animatorDown.SetBool("Body_Idle", !value);
+        animatorDown.SetBool("Legs_Idle", !value);
+
+        animatorSide.SetBool("Body_Walk", value);
+        animatorSide.SetBool("Legs_Walk", value);
+
+        animatorSide.SetBool("Body_Idle", !value);
+        animatorSide.SetBool("Legs_Idle", !value);
+    }
+
+    private void SetActiveRenderer(Vector2 direction)
+    {
+        if (direction.x == 0 && direction.y == -1)
+        {
+            rendererSide.enabled = false;
+            rendererDown.enabled = true;
+        }
+        else if (direction.x != 0)
+        {
+            rendererSide.flipX = direction.x < 0;
+            rendererDown.enabled = false;
+            rendererSide.enabled = true;
+        }
+        else
+        {
+            // Default position.
+            rendererSide.enabled = false;
+            rendererDown.enabled = true;
+        }
     }
 }
