@@ -160,7 +160,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (direction.x != 0)
         {
-            rendererSide.flipX = direction.x < 0;
+            animatorSide.gameObject.transform.localScale =
+                direction.x < 0 ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
+            // rendererSide.flipX = direction.x < 0;
             // rendererDown.enabled = false;
             // rendererUp.enabled = false;
             // rendererSide.enabled = true;
