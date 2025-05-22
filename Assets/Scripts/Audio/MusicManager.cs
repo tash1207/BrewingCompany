@@ -14,13 +14,13 @@ public class MusicManager : MonoBehaviour
         shouldPlayMusic = SettingsManager.Instance.GetValue(SettingsManager.SettingItem.Music);
         MaybePlayMusic();
     }
-    
+
     void OnEnable()
     {
         Actions.OnBackgroundMusicToggled += ToggleBackgroundMusic;
 
         Actions.OnLevelResumed += PlayInGameMusic;
-        Actions.OnLevelPaused += PauseMusic;
+        Actions.OnLevelPaused += PlayPauseMusic;
     }
 
     void OnDisable()
@@ -28,7 +28,7 @@ public class MusicManager : MonoBehaviour
         Actions.OnBackgroundMusicToggled -= ToggleBackgroundMusic;
 
         Actions.OnLevelResumed -= PlayInGameMusic;
-        Actions.OnLevelPaused -= PauseMusic;
+        Actions.OnLevelPaused -= PlayPauseMusic;
     }
 
     private void MaybePlayMusic()
@@ -51,6 +51,7 @@ public class MusicManager : MonoBehaviour
 
     private void PlayInGameMusic()
     {
+        TrackCurrentTimestamp();
         audioSource.clip = inGameMusic;
         audioSource.time = inGameMusicTimestamp;
         MaybePlayMusic();
@@ -58,14 +59,21 @@ public class MusicManager : MonoBehaviour
 
     private void PlayPauseMusic()
     {
+        TrackCurrentTimestamp();
         audioSource.clip = pausedGameMusic;
+        audioSource.time = inGameMusicTimestamp;
         MaybePlayMusic();
     }
 
-    private void PauseMusic()
+    // private void PauseMusic()
+    // {
+    //     TrackCurrentTimestamp();
+    //     PlayPauseMusic();
+    // }
+
+    private void TrackCurrentTimestamp()
     {
         audioSource.Pause();
         inGameMusicTimestamp = audioSource.time;
-        PlayPauseMusic();
     }
 }
