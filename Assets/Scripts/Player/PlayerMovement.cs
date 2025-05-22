@@ -150,29 +150,45 @@ public class PlayerMovement : MonoBehaviour
     {
         if (direction.x == 0 && direction.y == -1)
         {
-            rendererSide.enabled = false;
-            rendererUp.enabled = false;
-            rendererDown.enabled = true;
+            // rendererSide.enabled = false;
+            // rendererUp.enabled = false;
+            // rendererDown.enabled = true;
+
+            animatorSide.gameObject.SetActive(false);
+            animatorUp.gameObject.SetActive(false);
+            animatorDown.gameObject.SetActive(true);
         }
         else if (direction.x != 0)
         {
             rendererSide.flipX = direction.x < 0;
-            rendererDown.enabled = false;
-            rendererUp.enabled = false;
-            rendererSide.enabled = true;
+            // rendererDown.enabled = false;
+            // rendererUp.enabled = false;
+            // rendererSide.enabled = true;
+
+            animatorDown.gameObject.SetActive(false);
+            animatorUp.gameObject.SetActive(false);
+            animatorSide.gameObject.SetActive(true);
         }
         else if (direction.x == 0 && direction.y == 1)
         {
-            rendererDown.enabled = false;
-            rendererSide.enabled = false;
-            rendererUp.enabled = true;
+            // rendererDown.enabled = false;
+            // rendererSide.enabled = false;
+            // rendererUp.enabled = true;
+
+            animatorDown.gameObject.SetActive(false);
+            animatorSide.gameObject.SetActive(false);
+            animatorUp.gameObject.SetActive(true);
         }
         else
         {
             // Default position.
-            rendererSide.enabled = false;
-            rendererUp.enabled = false;
-            rendererDown.enabled = true;
+            // rendererSide.enabled = false;
+            // rendererUp.enabled = false;
+            // rendererDown.enabled = true;
+
+            animatorSide.gameObject.SetActive(false);
+            animatorUp.gameObject.SetActive(false);
+            animatorDown.gameObject.SetActive(true);
         }
     }
 }

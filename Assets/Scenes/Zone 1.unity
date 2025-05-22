@@ -1083,17 +1083,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4307445658704481191, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
   m_PrefabInstance: {fileID: 383399697967616288}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &484594813 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4642038805859853424, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
-  m_PrefabInstance: {fileID: 383399697967616288}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484594808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &484594814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,9 +1095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f244d52f229d92408945ae1eff93715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteLibrary: {fileID: 484594813}
-  greenShirt: {fileID: 7108339969198208228, guid: 5daf1ac710443384ebb409b53adc118c, type: 3}
-  yellowShirt: {fileID: 7108339969198208228, guid: f24936ef3a6e5844c84b1e316291b10e, type: 3}
+  spriteResolver: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7821,6 +7808,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1580379667695796848, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
+      propertyPath: m_labelHash
+      value: 4.19902e-37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580379667695796848, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
+      propertyPath: m_CategoryHash
+      value: 4.2023596e-15
+      objectReference: {fileID: 0}
     - target: {fileID: 4635007861740792073, guid: 1dda8196730e0d54b85999f7514c71fc, type: 3}
       propertyPath: m_Name
       value: Player

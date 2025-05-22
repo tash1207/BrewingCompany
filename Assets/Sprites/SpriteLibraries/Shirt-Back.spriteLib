@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Color
+    m_Hash: 664233965
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: White
+      m_Hash: 51307168
+      m_Sprite: {fileID: -27724073, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -27724073, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+    - m_Name: Black
+      m_Hash: 138712364
+      m_Sprite: {fileID: -1403158253, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1403158253, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+    - m_Name: Green
+      m_Hash: 291225893
+      m_Sprite: {fileID: 236540140, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 236540140, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+    - m_Name: Yellow
+      m_Hash: 396945833
+      m_Sprite: {fileID: -251919582, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -251919582, guid: 03d81e9dbc9eaea4ea8c792ab4346651, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638834788382641570
+  m_Version: 1

@@ -9,9 +9,7 @@ public class PlayerDisplayOptions : MonoBehaviour
         Yellow
     }
 
-    [SerializeField] SpriteLibrary spriteLibrary;
-    [SerializeField] SpriteLibraryAsset greenShirt;
-    [SerializeField] SpriteLibraryAsset yellowShirt;
+    [SerializeField] SpriteResolver spriteResolver;
 
     private const string shirtSettingName = "StoryShirt";
 
@@ -49,21 +47,18 @@ public class PlayerDisplayOptions : MonoBehaviour
 
     private void WearShirt(int shirtIndex)
     {
-        // Default to the green shirt.
-        SpriteLibraryAsset newShirt = greenShirt;
+        if (spriteResolver == null) { return; }
         switch (shirtIndex)
         {
             case 0:
-                newShirt = greenShirt;
+                spriteResolver.SetCategoryAndLabel("Color", "Green");
                 break;
             case 1:
-                newShirt = yellowShirt;
+                spriteResolver.SetCategoryAndLabel("Color", "Yellow");
                 break;
-        }
-
-        if (spriteLibrary != null)
-        {
-            spriteLibrary.spriteLibraryAsset = newShirt;
+            default:
+                spriteResolver.SetCategoryAndLabel("Color", "White");
+                break;
         }
     }
 
