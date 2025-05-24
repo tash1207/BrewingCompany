@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -133,6 +134,8 @@ public class PlayerInventory : MonoBehaviour
         NumGlasses += amount;
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
         Actions.OnBusTubGlasswareCountChanged(NumGlasses);
+
+        UpdateBusTubGlasswareUI(false);
     }
 
     public void ChangePoopCount(int amount)
@@ -190,19 +193,36 @@ public class PlayerInventory : MonoBehaviour
         NumGlasses -= amount;
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
         Actions.OnBusTubGlasswareCountChanged(NumGlasses);
+
+        UpdateBusTubGlasswareUI(true);
     }
 
     public void CarryBusTub()
     {
-        foreach (var busTub in carriedBusTubs)
+        foreach (GameObject busTub in carriedBusTubs)
         {
             busTub.SetActive(true);
         }
     }
 
+    private void UpdateBusTubGlasswareUI(bool firstHide)
+    {
+        foreach (GameObject busTub in carriedBusTubs)
+        {
+            if (busTub.TryGetComponent(out CarriedBusTub carriedBusTub))
+            {
+                if (firstHide && NumGlasses != 0)
+                {
+                    carriedBusTub.HideAllBussedGlasses();
+                }
+                carriedBusTub.ShowBussedGlasses(NumGlasses);
+            }
+        }
+    }
+
     public void DropOffBusTub()
     {
-        foreach (var busTub in carriedBusTubs)
+        foreach (GameObject busTub in carriedBusTubs)
         {
             busTub.SetActive(false);
         }
