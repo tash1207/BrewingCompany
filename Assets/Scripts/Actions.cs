@@ -16,6 +16,7 @@ public static class Actions
     public static Action<int> OnGlasswareChanged;
     public static Action<int> OnBusTubGlasswareCountChanged;
     public static Action<int> OnPoopCountChanged;
+    public static Action OnMaxGlasswareChanged;
 
     // Player Display Options
     public static Action<PlayerDisplayOptions.Shirt> OnChooseShirt;

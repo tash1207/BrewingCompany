@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxGlasses: 5
-  AllowRiskyPickup: 0
+  AllowRiskyPickup: 1
   AllowBusTubPickup: 0
 --- !u!114 &3932553332727572623
 MonoBehaviour:

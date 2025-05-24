@@ -5,7 +5,7 @@ public class SkillsManager : MonoBehaviour
     public static SkillsManager Instance { get; private set; }
 
     public int MaxGlasses = 5;
-    public bool AllowRiskyPickup = false;
+    public bool AllowRiskyPickup = true;
     public bool AllowBusTubPickup = false;
 
     void Awake()
@@ -39,15 +39,17 @@ public class SkillsManager : MonoBehaviour
 
     private void SetStatsForLevel(int level)
     {
+        AllowRiskyPickup = true;
         if (level >= 1)
         {
-            MaxGlasses = 6;
+            MaxGlasses = 7;
+            Actions.OnMaxGlasswareChanged();
         }
+        // if (level >= 2)
+        // {
+        //     AllowRiskyPickup = true;
+        // }
         if (level >= 2)
-        {
-            AllowRiskyPickup = true;
-        }
-        if (level >= 3)
         {
             AllowBusTubPickup = true;
         }

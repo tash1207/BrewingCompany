@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -56,7 +55,8 @@ public class PlayerInventory : MonoBehaviour
     
     void TryPickUp(BeerGlass beerGlass)
     {
-        if (!SkillsManager.Instance.AllowRiskyPickup && IsCarryingMaxGlassware())
+        if (!IsCarryingBusTub() && !SkillsManager.Instance.AllowRiskyPickup
+            && IsCarryingMaxGlassware())
         {
             AlertControl.Instance.ShowAlert(
                 "Already carrying " + SkillsManager.Instance.MaxGlasses + " glasses.", 2f);

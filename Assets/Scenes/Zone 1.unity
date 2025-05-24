@@ -8325,6 +8325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUDCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2457533634855728087, guid: 6f9fbdcb1939e8748b117c1d6061a9b3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4098118156781498480, guid: 6f9fbdcb1939e8748b117c1d6061a9b3, type: 3}
       propertyPath: m_Pivot.x
       value: 0

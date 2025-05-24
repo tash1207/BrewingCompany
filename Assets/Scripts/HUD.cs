@@ -14,6 +14,8 @@ public class HUD : MonoBehaviour
 
     [SerializeField] GameObject expSlider;
 
+    private int currentlyDisplayedAmount;
+
     void Awake()
     {
         if (GameManager.Instance != null &&
@@ -28,6 +30,7 @@ public class HUD : MonoBehaviour
         Actions.OnGlasswareChanged += UpdateGlassware;
         Actions.OnBusTubGlasswareCountChanged += UpdateBusTubGlasswareCount;
         Actions.OnPoopCountChanged += UpdatePoopCount;
+        Actions.OnMaxGlasswareChanged += MaxGlasswareChanged;
         Actions.ResetLevel += ResetState;
     }
 
@@ -36,6 +39,7 @@ public class HUD : MonoBehaviour
         Actions.OnGlasswareChanged -= UpdateGlassware;
         Actions.OnBusTubGlasswareCountChanged -= UpdateBusTubGlasswareCount;
         Actions.OnPoopCountChanged -= UpdatePoopCount;
+        Actions.OnMaxGlasswareChanged -= MaxGlasswareChanged;
         Actions.ResetLevel -= ResetState;
     }
 
@@ -48,7 +52,17 @@ public class HUD : MonoBehaviour
     {
         HideDisplays();
         beerDisplay.SetActive(true);
-        beerCount.text = totalGlassware.ToString();
+        beerCount.text = totalGlassware.ToString() + " / " + SkillsManager.Instance.MaxGlasses;
+        currentlyDisplayedAmount = totalGlassware;
+
+        if (totalGlassware > SkillsManager.Instance.MaxGlasses)
+        {
+            beerCount.color = Color.red;
+        }
+        else
+        {
+            beerCount.color = Color.white;
+        }
     }
 
     void UpdateBusTubGlasswareCount(int totalBusTubGlassware)
@@ -56,6 +70,7 @@ public class HUD : MonoBehaviour
         HideDisplays();
         busTubDisplay.SetActive(true);
         busTubGlasswareCount.text = totalBusTubGlassware.ToString() + " / 25";
+        currentlyDisplayedAmount = totalBusTubGlassware;
     }
 
     void UpdatePoopCount(int totalPoops)
@@ -63,6 +78,15 @@ public class HUD : MonoBehaviour
         HideDisplays();
         poopDisplay.SetActive(true);
         poopCount.text = totalPoops.ToString();
+        currentlyDisplayedAmount = totalPoops;
+    }
+
+    void MaxGlasswareChanged()
+    {
+        if (beerDisplay.activeSelf)
+        {
+            UpdateGlassware(currentlyDisplayedAmount);
+        }
     }
 
     void HideDisplays()

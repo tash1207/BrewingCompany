@@ -2640,7 +2640,7 @@ MonoBehaviour:
   beerPrefabs:
   - {fileID: 281269091425813955, guid: 40eb6ebe5dcee574fb2b20971e0e1945, type: 3}
   - {fileID: 770607190797503101, guid: 1e912bcd4f8d6704d91c829278a5a818, type: 3}
-  beerSpawnRate: 2
+  beerSpawnRate: 1.9
 --- !u!4 &702431007
 Transform:
   m_ObjectHideFlags: 0
