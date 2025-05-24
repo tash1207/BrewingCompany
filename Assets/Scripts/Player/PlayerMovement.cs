@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,18 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lookDirection = new Vector2(0, -1);
     private float interactionDistance = 1.3f;
 
-    private SpriteRenderer rendererDown;
-    private SpriteRenderer rendererSide;
-    private SpriteRenderer rendererUp;
-
     private bool isPaused;
 
     void Awake()
     {
-        rendererDown = animatorDown.gameObject.GetComponent<SpriteRenderer>();
-        rendererSide = animatorSide.gameObject.GetComponent<SpriteRenderer>();
-        rendererUp = animatorUp.gameObject.GetComponent<SpriteRenderer>();
-        SetActiveRenderer(lookDirection);
+        SetActiveAnimator(lookDirection);
 
         rb2d = GetComponent<Rigidbody2D>();
         PausePlayerMovement();
@@ -53,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
         Actions.ResetLevel -= ResetPlayerPosition;
     }
 
+    void Update() {
+        SetCarryingAnimation(playerInventory.IsCarryingBusTub());
+    }
+
     void FixedUpdate()
     {
         if (isPaused) { return; }
@@ -69,12 +67,10 @@ public class PlayerMovement : MonoBehaviour
         if (!Mathf.Approximately(moveInput.x, 0f) || !Mathf.Approximately(moveInput.y, 0f))
         {
             lookDirection.Set(moveInput.x, moveInput.y);
-            lookDirection.Normalize();
-            SetActiveRenderer(lookDirection);
+            // lookDirection.Normalize();
+            SetActiveAnimator(lookDirection);
 
             SetWalkingAnimation(true);
-            // animatorDown.SetFloat("LookX", lookDirection.x);
-            // animatorDown.SetFloat("LookY", lookDirection.y);
         }
         else
         {
@@ -120,9 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = initialPosition;
         lookDirection.Set(0, -1);
-        SetActiveRenderer(lookDirection);
-        // animatorDown.SetFloat("LookX", lookDirection.x);
-        // animatorDown.SetFloat("LookY", lookDirection.y);
+        SetActiveAnimator(lookDirection);
     }
 
     private void SetWalkingAnimation(bool value)
@@ -146,14 +140,17 @@ public class PlayerMovement : MonoBehaviour
         animatorUp.SetBool("Legs_Idle", !value);
     }
 
-    private void SetActiveRenderer(Vector2 direction)
+    private void SetCarryingAnimation(bool value)
+    {
+        animatorDown.SetBool("Body_Carry", value);
+        animatorSide.SetBool("Body_Carry", value);
+        animatorUp.SetBool("Body_Carry", value);
+    }
+
+    private void SetActiveAnimator(Vector2 direction)
     {
         if (direction.x == 0 && direction.y == -1)
         {
-            // rendererSide.enabled = false;
-            // rendererUp.enabled = false;
-            // rendererDown.enabled = true;
-
             animatorSide.gameObject.SetActive(false);
             animatorUp.gameObject.SetActive(false);
             animatorDown.gameObject.SetActive(true);
@@ -162,10 +159,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animatorSide.gameObject.transform.localScale =
                 direction.x < 0 ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
-            // rendererSide.flipX = direction.x < 0;
-            // rendererDown.enabled = false;
-            // rendererUp.enabled = false;
-            // rendererSide.enabled = true;
 
             animatorDown.gameObject.SetActive(false);
             animatorUp.gameObject.SetActive(false);
@@ -173,10 +166,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (direction.x == 0 && direction.y == 1)
         {
-            // rendererDown.enabled = false;
-            // rendererSide.enabled = false;
-            // rendererUp.enabled = true;
-
             animatorDown.gameObject.SetActive(false);
             animatorSide.gameObject.SetActive(false);
             animatorUp.gameObject.SetActive(true);
@@ -184,10 +173,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // Default position.
-            // rendererSide.enabled = false;
-            // rendererUp.enabled = false;
-            // rendererDown.enabled = true;
-
             animatorSide.gameObject.SetActive(false);
             animatorUp.gameObject.SetActive(false);
             animatorDown.gameObject.SetActive(true);

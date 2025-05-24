@@ -99,6 +99,7 @@ public class BusTub : MonoBehaviour
         {
             gameObject.SetActive(false);
             Actions.OnItemPickedUp(gameObject);
+            inventory.CarryBusTub();
             return true;
         }
         if (!inventory.IsCarryingGlassware() && inventory.IsCarryingBusTub())

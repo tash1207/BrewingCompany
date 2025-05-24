@@ -6,6 +6,8 @@ public class PlayerInventory : MonoBehaviour
     public int NumPoops { get; private set; }
     public int NumBusTubs { get; private set; }
 
+    [SerializeField] GameObject[] carriedBusTubs;
+
     void OnEnable()
     {
         Actions.ResetLevel += ResetState;
@@ -190,8 +192,21 @@ public class PlayerInventory : MonoBehaviour
         Actions.OnBusTubGlasswareCountChanged(NumGlasses);
     }
 
+    public void CarryBusTub()
+    {
+        foreach (var busTub in carriedBusTubs)
+        {
+            busTub.SetActive(true);
+        }
+    }
+
     public void DropOffBusTub()
     {
+        foreach (var busTub in carriedBusTubs)
+        {
+            busTub.SetActive(false);
+        }
+
         NumBusTubs = 0;
         NumGlasses = 0;
         Actions.OnGlasswareChanged(0);
