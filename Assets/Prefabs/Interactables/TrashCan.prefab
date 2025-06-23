@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 1954490451041609546}
   - component: {fileID: 7605590542196407423}
   m_Layer: 6
-  m_Name: Interactable
+  m_Name: TrashCanInteractable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

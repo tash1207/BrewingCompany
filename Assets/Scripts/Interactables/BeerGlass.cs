@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BeerGlass : MonoBehaviour
+public class BeerGlass : Interactable
 {
     [Header("References")]
     [SerializeField] SpriteRenderer beerFill;
@@ -28,7 +28,7 @@ public class BeerGlass : MonoBehaviour
             AlertControl.Instance.ShowAlert("Throw away poop before picking up glassware.", 2f);
             return false;
         }
-        else if (beerFill.size.y > beerAmountDeemedEmpty)
+        else if (!IsEmpty())
         {
             AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
             return false;
@@ -42,6 +42,11 @@ public class BeerGlass : MonoBehaviour
         }
     }
 
+    public bool IsEmpty()
+    {
+        return beerFill.size.y < beerAmountDeemedEmpty;
+    }
+
     public void SetBeerFill(float fill)
     {
         beerFill.size = new Vector2(1, fill);
@@ -50,5 +55,10 @@ public class BeerGlass : MonoBehaviour
     public void ResetBeerFill()
     {
         SetBeerFill(1f);
+    }
+
+    public override int GetPriority()
+    {
+        return IsEmpty() ? Priorities.BeerGlassEmpty : Priorities.BeerGlassFull;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TrashCan : MonoBehaviour
+public class TrashCan : Interactable
 {
     public void ThrowAwayTrashItems(PlayerInventory inventory)
     {
@@ -26,5 +26,10 @@ public class TrashCan : MonoBehaviour
         {
             AlertControl.Instance.ShowAlert("It's a trash can.", 1.5f);
         }
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.TrashCan;
     }
 }

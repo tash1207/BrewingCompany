@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DogPoop : MonoBehaviour
+public class DogPoop : Interactable
 {
     public bool PickUp(PlayerInventory inventory)
     {
@@ -19,5 +19,10 @@ public class DogPoop : MonoBehaviour
             Actions.OnItemPickedUp(gameObject);
             return true;
         }
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.DogPoop;
     }
 }

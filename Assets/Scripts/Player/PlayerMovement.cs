@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 initialPosition;
     private Vector2 lookDirection = new Vector2(0, -1);
-    private float interactionDistance = 1.3f;
+    private float interactionDistance = 1.15f;
+    private float interactionRadius = 0.15f;
+    private RaycastHit2D[] hits = new RaycastHit2D[4];
 
     private bool isPaused;
 
@@ -82,15 +83,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isPaused) { return; }
 
-        RaycastHit2D hit = Physics2D.Raycast(
-            new Vector2(transform.position.x, transform.position.y + 1.1f),
+        System.Array.Clear(hits, 0, hits.Length);
+        Physics2D.CircleCastNonAlloc(
+            new Vector2(transform.position.x, transform.position.y + 0.95f),
+            interactionRadius,
             lookDirection,
+            hits,
             interactionDistance,
             LayerMask.GetMask("Interactable"));
-        if (hit.collider != null)
-        {
-            playerInventory.Interact(hit.collider.gameObject);
-        }
+        playerInventory.Interact(hits);
     }
 
     void OnPause(InputValue value)

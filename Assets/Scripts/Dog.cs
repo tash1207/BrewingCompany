@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dog : MonoBehaviour
+public class Dog : Interactable
 {
     [SerializeField] GameObject heartBubble;
     [SerializeField] GameObject dogPoopPrefab;
@@ -99,5 +99,10 @@ public class Dog : MonoBehaviour
         }
 
         dogPoopObjects.Clear();
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.Dog;
     }
 }

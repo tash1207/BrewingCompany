@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BusTubTable : MonoBehaviour
+public class BusTubTable : Interactable
 {
     [SerializeField] BusTub busTub;
 
@@ -14,5 +14,10 @@ public class BusTubTable : MonoBehaviour
             inventory.DropOffBusTub();
             return;
         }
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.BusTubTable;
     }
 }

@@ -18,6 +18,36 @@ public class PlayerInventory : MonoBehaviour
         Actions.ResetLevel -= ResetState;
     }
 
+    /*
+     * Determines which of the hit objects should be interacted based on
+     * priority and proximity.
+     */
+    public void Interact(RaycastHit2D[] hits)
+    {
+        int highestPriorityHitIndex = -1;
+        int highestPriority = Priorities.NoPriority;
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit2D hit = hits[i];
+            if (hit.collider != null)
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject.TryGetComponent(out Interactable interactable))
+                {
+                    if (interactable.GetPriority() > highestPriority)
+                    {
+                        highestPriorityHitIndex = i;
+                        highestPriority = interactable.GetPriority();
+                    }
+                }
+            }
+        }
+        if (highestPriorityHitIndex > -1)
+        {
+            Interact(hits[highestPriorityHitIndex].collider.gameObject);
+        }
+    }
+
     public void Interact(GameObject item)
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))

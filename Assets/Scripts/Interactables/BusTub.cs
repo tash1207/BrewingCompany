@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BusTub : MonoBehaviour
+public class BusTub : Interactable
 {
     [SerializeField] GameObject bussedGlassesParent;
     [SerializeField] GameObject statusCanvas;
@@ -12,10 +12,10 @@ public class BusTub : MonoBehaviour
     private int maxGlassware = 25;
 
     private List<GameObject> bussedGlassesObjects = new List<GameObject>();
-    
+
     void Start()
     {
-        foreach(Transform child in bussedGlassesParent.transform)
+        foreach (Transform child in bussedGlassesParent.transform)
         {
             bussedGlassesObjects.Add(child.gameObject);
         }
@@ -190,5 +190,10 @@ public class BusTub : MonoBehaviour
         TotalGlassware = 0;
         UpdateBusTubDisplay();
         HideAllBussedGlasses();
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.BusTub;
     }
 }

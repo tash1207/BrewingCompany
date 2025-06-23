@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 9200046181433492554}
   - component: {fileID: 5463700957439114591}
   m_Layer: 6
-  m_Name: Interactable
+  m_Name: DogPoopInteractable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
