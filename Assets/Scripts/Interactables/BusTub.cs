@@ -9,7 +9,9 @@ public class BusTub : Interactable
     [SerializeField] TMP_Text statusText;
 
     public int TotalGlassware;
-    private int maxGlassware = 25;
+    private static int maxGlassware = 25;
+
+    public static int MaxGlassware => maxGlassware;
 
     private List<GameObject> bussedGlassesObjects = new List<GameObject>();
 
@@ -58,7 +60,7 @@ public class BusTub : Interactable
         }
         if (IsFull())
         {
-            AlertControl.Instance.ShowAlert("This bus tub is full.");
+            AlertControl.Instance.ShowShortAlert("This bus tub is full.");
             return;
         }
         if (inventory.NumGlasses == 0)
@@ -86,7 +88,7 @@ public class BusTub : Interactable
         {
             if (IsFull())
             {
-                AlertControl.Instance.ShowAlert("This bus tub is full.");
+                AlertControl.Instance.ShowShortAlert("This bus tub is full.");
                 return false;
             }
             else
@@ -124,9 +126,9 @@ public class BusTub : Interactable
         TotalGlassware += clearedGlasses;
         Actions.OnGlasswareCleared(clearedGlasses);
         SFXManager.Instance.PlayDropOffClip();
-        AlertControl.Instance.ShowAlert(
+        AlertControl.Instance.ShowShortAlert(
             "Cleared " + clearedGlasses +
-            (clearedGlasses == 1 ? " glass." : " glasses."), 2f);
+            (clearedGlasses == 1 ? " glass." : " glasses."));
         UpdateBusTubDisplay();
     }
 
@@ -145,9 +147,9 @@ public class BusTub : Interactable
         }
         TotalGlassware += droppedOffGlasses;
         SFXManager.Instance.PlayDropOffClip();
-        AlertControl.Instance.ShowAlert(
+        AlertControl.Instance.ShowShortAlert(
             "Dropped off " + droppedOffGlasses +
-            (droppedOffGlasses == 1 ? " glass." : " glasses."), 2f);
+            (droppedOffGlasses == 1 ? " glass." : " glasses."));
         UpdateBusTubDisplay();
     }
 

@@ -24,7 +24,7 @@ public class TrashCan : Interactable
         }
         else
         {
-            AlertControl.Instance.ShowAlert("It's a trash can.", 1.5f);
+            AlertControl.Instance.ShowShortAlert("It's a trash can.");
         }
     }
 

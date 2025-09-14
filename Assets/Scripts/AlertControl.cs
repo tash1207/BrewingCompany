@@ -10,7 +10,10 @@ public class AlertControl : MonoBehaviour
 
     private bool showingAlert;
     private float alertTimer;
+
+    private float shortAlertDuration = 2f;
     private float defaultAlertDuration = 2.5f;
+    private float longAlertDuration = 3.5f;
 
     void Awake()
     {
@@ -51,7 +54,17 @@ public class AlertControl : MonoBehaviour
         ShowAlert(text, defaultAlertDuration);
     }
 
-    public void ShowAlert(string text, float duration)
+    public void ShowShortAlert(string text)
+    {
+        ShowAlert(text, shortAlertDuration);
+    }
+
+    public void ShowLongAlert(string text)
+    {
+        ShowAlert(text, longAlertDuration);
+    }
+
+    void ShowAlert(string text, float duration)
     {
         alertText.text = text;
         alertDisplay.SetActive(true);

@@ -25,12 +25,12 @@ public class BeerGlass : Interactable
     {
         if (inventory.IsCarryingPoop())
         {
-            AlertControl.Instance.ShowAlert("Throw away poop before picking up glassware.", 2f);
+            AlertControl.Instance.ShowShortAlert("Throw away poop before picking up glassware.");
             return false;
         }
         else if (!IsEmpty())
         {
-            AlertControl.Instance.ShowAlert("That beer isn't empty yet!", 2f);
+            AlertControl.Instance.ShowShortAlert("That beer isn't empty yet!");
             return false;
         }
         else

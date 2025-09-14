@@ -48,7 +48,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void Interact(GameObject item)
+    void Interact(GameObject item)
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
         {
@@ -88,13 +88,13 @@ public class PlayerInventory : MonoBehaviour
         if (!IsCarryingBusTub() && !SkillsManager.Instance.AllowRiskyPickup
             && IsCarryingMaxGlassware())
         {
-            AlertControl.Instance.ShowAlert(
-                "Already carrying " + SkillsManager.Instance.MaxGlasses + " glasses.", 2f);
+            AlertControl.Instance.ShowShortAlert(
+                "Already carrying " + SkillsManager.Instance.MaxGlasses + " glasses.");
             return;
         }
-        if (IsCarryingBusTub() && NumGlasses >= 25)
+        if (IsCarryingBusTub() && NumGlasses >= BusTub.MaxGlassware)
         {
-            AlertControl.Instance.ShowAlert("This bus tub can't hold any more glasses.", 2f);
+            AlertControl.Instance.ShowShortAlert("This bus tub can't hold any more glasses.");
             return;
         }
         if (beerGlass.PickUp(this))
@@ -136,7 +136,7 @@ public class PlayerInventory : MonoBehaviour
             // TODO: Keep track of glasses broken.
             NumGlasses = 0;
             SFXManager.Instance.PlayGlassBreaking();
-            AlertControl.Instance.ShowAlert("Dropped all glasses!", 2f);
+            AlertControl.Instance.ShowShortAlert("Dropped all glasses!");
         }
         else
         {
@@ -144,18 +144,18 @@ public class PlayerInventory : MonoBehaviour
             if (SkillsManager.Instance.AllowRiskyPickup &&
                 NumGlasses == SkillsManager.Instance.MaxGlasses)
             {
-                AlertControl.Instance.ShowAlert(
-                    "WARNING: Trying to carry more glasses may result in dropping them.", 3.5f);
+                AlertControl.Instance.ShowLongAlert(
+                    "WARNING: Trying to carry more glasses may result in dropping them.");
             }
         }
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
         Actions.OnGlasswareChanged(NumGlasses);
     }
 
-    private bool MaybeDropGlassware()
+    bool MaybeDropGlassware()
     {
         int percentChanceOfDropping = 5 + (8 * (NumGlasses - SkillsManager.Instance.MaxGlasses));
-        return Random.Range(0, 100) < percentChanceOfDropping;
+        return Random.Range(1, 101) <= percentChanceOfDropping;
     }
 
     public void ChangeBusTubGlasswareCount(int amount)
@@ -235,7 +235,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void UpdateBusTubGlasswareUI(bool firstHide)
+    void UpdateBusTubGlasswareUI(bool firstHide)
     {
         foreach (GameObject busTub in carriedBusTubs)
         {
@@ -262,9 +262,10 @@ public class PlayerInventory : MonoBehaviour
         Actions.OnGlasswareChanged(0);
     }
 
-    private void ResetState()
+    void ResetState()
     {
         NumGlasses = 0;
         NumPoops = 0;
+        NumBusTubs = 0;
     }
 }

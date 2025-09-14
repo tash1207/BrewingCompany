@@ -6,12 +6,12 @@ public class DogPoop : Interactable
     {
         if (inventory.IsCarryingBusTub())
         {
-            AlertControl.Instance.ShowAlert("Put the bus tub away before picking up dog poop.", 2.5f);
+            AlertControl.Instance.ShowAlert("Put the bus tub away before picking up dog poop.");
             return false;
         }
         else if (inventory.IsCarryingGlassware())
         {
-            AlertControl.Instance.ShowAlert("Drop off glasses before picking up dog poop.", 2.5f);
+            AlertControl.Instance.ShowAlert("Drop off glasses before picking up dog poop.");
             return false;
         }
         else
