@@ -39,7 +39,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void Interact(GameObject item)
+    void Interact(GameObject item)
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
         {

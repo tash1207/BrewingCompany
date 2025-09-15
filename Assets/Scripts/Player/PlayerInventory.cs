@@ -82,21 +82,6 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void UpdateBusTubGlasswareUI(bool firstHide)
-    {
-        foreach (GameObject busTub in carriedBusTubs)
-        {
-            if (busTub.TryGetComponent(out CarriedBusTub carriedBusTub))
-            {
-                if (firstHide && NumGlasses != 0)
-                {
-                    carriedBusTub.HideAllBussedGlasses();
-                }
-                carriedBusTub.ShowBussedGlasses(NumGlasses);
-            }
-        }
-    }
-
     public void DropOffBusTub()
     {
         foreach (GameObject busTub in carriedBusTubs)
@@ -126,6 +111,21 @@ public class PlayerInventory : MonoBehaviour
     public bool IsCarryingMaxGlassware()
     {
         return NumGlasses >= SkillsManager.Instance.MaxGlasses;
+    }
+
+    void UpdateBusTubGlasswareUI(bool firstHide)
+    {
+        foreach (GameObject busTub in carriedBusTubs)
+        {
+            if (busTub.TryGetComponent(out CarriedBusTub carriedBusTub))
+            {
+                if (firstHide && NumGlasses != 0)
+                {
+                    carriedBusTub.HideAllBussedGlasses();
+                }
+                carriedBusTub.ShowBussedGlasses(NumGlasses);
+            }
+        }
     }
 
     void ResetState()
