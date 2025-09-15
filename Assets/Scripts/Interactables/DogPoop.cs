@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DogPoop : Interactable
 {
-    public bool PickUp(PlayerInventory inventory)
+    public override bool Interact(PlayerInventory inventory)
     {
         if (inventory.IsCarryingBusTub())
         {
@@ -17,6 +17,7 @@ public class DogPoop : Interactable
         else
         {
             Actions.OnItemPickedUp(gameObject);
+            inventory.ChangePoopCount(1);
             return true;
         }
     }

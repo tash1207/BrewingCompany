@@ -21,7 +21,7 @@ public class BeerGlass : Interactable
         }
     }
 
-    public bool PickUp(PlayerInventory inventory)
+    public override bool Interact(PlayerInventory inventory)
     {
         if (inventory.IsCarryingPoop())
         {
@@ -42,6 +42,11 @@ public class BeerGlass : Interactable
         }
     }
 
+    public override int GetPriority()
+    {
+        return IsEmpty() ? Priorities.BeerGlassEmpty : Priorities.BeerGlassFull;
+    }
+
     public bool IsEmpty()
     {
         return beerFill.size.y < beerAmountDeemedEmpty;
@@ -55,10 +60,5 @@ public class BeerGlass : Interactable
     public void ResetBeerFill()
     {
         SetBeerFill(1f);
-    }
-
-    public override int GetPriority()
-    {
-        return IsEmpty() ? Priorities.BeerGlassEmpty : Priorities.BeerGlassFull;
     }
 }

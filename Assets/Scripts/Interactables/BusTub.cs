@@ -51,39 +51,42 @@ public class BusTub : Interactable
         }
     }
 
-    public void Interact(PlayerInventory inventory)
+    public override bool Interact(PlayerInventory inventory)
     {
         if (inventory.IsCarryingPoop())
         {
             AlertControl.Instance.ShowAlert("Poop goes in the trash can, not the bus tub.");
-            return;
+            return false;
+        }
+        if (SkillsManager.Instance.AllowBusTubPickup)
+        {
+            if (!inventory.IsCarryingGlassware() || inventory.IsCarryingBusTub())
+            {
+                return PickUp(inventory);
+            }
         }
         if (IsFull())
         {
             AlertControl.Instance.ShowShortAlert("This bus tub is full.");
-            return;
+            return false;
         }
         if (inventory.NumGlasses == 0)
         {
             AlertControl.Instance.ShowAlert("I can bring empty glasses here.");
-            return;
+            return false;
         }
 
         ClearGlassware(inventory);
+        return true;
+    }
+
+    public override int GetPriority()
+    {
+        return Priorities.BusTub;
     }
 
     public bool PickUp(PlayerInventory inventory)
     {
-        if (inventory.IsCarryingPoop())
-        {
-            AlertControl.Instance.ShowAlert("Poop goes in the trash can, not the bus tub.");
-            return false;
-        }
-        if (inventory.IsCarryingGlassware() && !inventory.IsCarryingBusTub())
-        {
-            Interact(inventory);
-            return false;
-        }
         if (inventory.IsCarryingGlassware() && inventory.IsCarryingBusTub())
         {
             if (IsFull())
@@ -102,6 +105,7 @@ public class BusTub : Interactable
             gameObject.SetActive(false);
             Actions.OnItemPickedUp(gameObject);
             inventory.CarryBusTub();
+            inventory.ChangeBusTubGlasswareCount(TotalGlassware);
             return true;
         }
         if (!inventory.IsCarryingGlassware() && inventory.IsCarryingBusTub())
@@ -193,10 +197,5 @@ public class BusTub : Interactable
         TotalGlassware = 0;
         UpdateBusTubDisplay();
         HideAllBussedGlasses();
-    }
-
-    public override int GetPriority()
-    {
-        return Priorities.BusTub;
     }
 }

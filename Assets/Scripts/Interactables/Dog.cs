@@ -65,11 +65,12 @@ public class Dog : Interactable
         isPooping = false;
     }
 
-    public void Pet()
+    public override bool Interact(PlayerInventory inventory)
     {
-        if (isShowingHeartBubble || isPooping) { return; }
+        if (isShowingHeartBubble || isPooping) { return false; }
         SFXManager.Instance.PlayDogBark();
         StartCoroutine(ShowHeartBubbleForSeconds(1.5f));
+        return true;
     }
 
     IEnumerator ShowHeartBubbleForSeconds(float seconds)

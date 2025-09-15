@@ -43,52 +43,37 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (item.TryGetComponent(out BeerGlass beerGlass))
         {
-            TryPickUp(beerGlass);
-        }
-        else if (item.TryGetComponent(out BusTub busTub))
-        {
-            if (SkillsManager.Instance.AllowBusTubPickup)
+            if (CanPickUpBeerGlass())
             {
-                TryPickUp(busTub);
-            }
-            else
-            {
-                busTub.Interact(playerInventory);
+                PickUp(beerGlass);
             }
         }
-        else if (item.TryGetComponent(out DogPoop dogPoop))
+        else if (item.TryGetComponent(out Interactable interactable))
         {
-            TryPickUp(dogPoop);
-        }
-        else if (item.TryGetComponent(out Dog dog))
-        {
-            dog.Pet();
-        }
-        else if (item.TryGetComponent(out TrashCan trashCan))
-        {
-            trashCan.ThrowAwayTrashItems(playerInventory);
-        }
-        else if (item.TryGetComponent(out BusTubTable busTubTable))
-        {
-            busTubTable.Interact(playerInventory);
+            interactable.Interact(playerInventory);
         }
     }
 
-    void TryPickUp(BeerGlass beerGlass)
+    bool CanPickUpBeerGlass()
     {
         if (!playerInventory.IsCarryingBusTub() && !SkillsManager.Instance.AllowRiskyPickup
             && playerInventory.IsCarryingMaxGlassware())
         {
             AlertControl.Instance.ShowShortAlert(
                 "Already carrying " + SkillsManager.Instance.MaxGlasses + " glasses.");
-            return;
+            return false;
         }
         if (playerInventory.IsCarryingBusTub() && playerInventory.NumGlasses >= BusTub.MaxGlassware)
         {
             AlertControl.Instance.ShowShortAlert("This bus tub can't hold any more glasses.");
-            return;
+            return false;
         }
-        if (beerGlass.PickUp(playerInventory))
+        return true;
+    }
+
+    void PickUp(BeerGlass beerGlass)
+    {
+        if (beerGlass.Interact(playerInventory))
         {
             if (playerInventory.IsCarryingBusTub())
             {
@@ -97,29 +82,14 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                ChangeGlasses(1);
+                OnPickedUpGlass();
             }
         }
     }
 
-    void TryPickUp(BusTub busTub)
+    void OnPickedUpGlass()
     {
-        if (busTub.PickUp(playerInventory))
-        {
-            playerInventory.ChangeBusTubGlasswareCount(busTub.TotalGlassware);
-        }
-    }
-
-    void TryPickUp(DogPoop dogPoop)
-    {
-        if (dogPoop.PickUp(playerInventory))
-        {
-            playerInventory.ChangePoopCount(1);
-        }
-    }
-
-    public void ChangeGlasses(int amount)
-    {
+        // Check for random chance that player drops all glasses.
         if (SkillsManager.Instance.AllowRiskyPickup &&
             playerInventory.IsCarryingMaxGlassware() &&
             MaybeDropGlassware())
@@ -131,7 +101,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            playerInventory.ChangeNumGlasses(amount);
+            playerInventory.ChangeNumGlasses(1);
             if (SkillsManager.Instance.AllowRiskyPickup &&
                 playerInventory.NumGlasses == SkillsManager.Instance.MaxGlasses)
             {

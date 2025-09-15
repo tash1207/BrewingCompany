@@ -4,7 +4,7 @@ public class BusTubTable : Interactable
 {
     [SerializeField] BusTub busTub;
 
-    public void Interact(PlayerInventory inventory)
+    public override bool Interact(PlayerInventory inventory)
     {
         if (inventory.IsCarryingBusTub())
         {
@@ -12,8 +12,9 @@ public class BusTubTable : Interactable
             busTub.ClearAndUpdateBusTubDisplay();
             busTub.gameObject.SetActive(true);
             inventory.DropOffBusTub();
-            return;
+            return true;
         }
+        return false;
     }
 
     public override int GetPriority()
