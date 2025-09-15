@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animatorDown;
     [SerializeField] Animator animatorSide;
     [SerializeField] Animator animatorUp;
+    [SerializeField] PlayerInteraction playerInteraction;
     [SerializeField] PlayerInventory playerInventory;
 
     private Rigidbody2D rb2d;
@@ -91,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             hits,
             interactionDistance,
             LayerMask.GetMask("Interactable"));
-        playerInventory.Interact(hits);
+        playerInteraction.Interact(hits);
     }
 
     void OnPause(InputValue value)

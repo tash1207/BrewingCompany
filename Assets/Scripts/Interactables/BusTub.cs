@@ -117,12 +117,13 @@ public class BusTub : Interactable
         int clearedGlasses;
         if (TotalGlassware + inventory.NumGlasses > maxGlassware)
         {
-            clearedGlasses = inventory.ClearGlassware(maxGlassware - TotalGlassware);
+            clearedGlasses = maxGlassware - TotalGlassware;
         }
         else
         {
-            clearedGlasses = inventory.ClearAllGlassware();
+            clearedGlasses = inventory.NumGlasses;
         }
+        inventory.ClearGlassware(clearedGlasses);
         TotalGlassware += clearedGlasses;
         Actions.OnGlasswareCleared(clearedGlasses);
         SFXManager.Instance.PlayDropOffClip();

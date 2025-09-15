@@ -18,144 +18,16 @@ public class PlayerInventory : MonoBehaviour
         Actions.ResetLevel -= ResetState;
     }
 
-    /*
-     * Determines which of the hit objects should be interacted based on
-     * priority and proximity.
-     */
-    public void Interact(RaycastHit2D[] hits)
+    public void SetNumGlasses(int amount)
     {
-        int highestPriorityHitIndex = -1;
-        int highestPriority = Priorities.NoPriority;
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit2D hit = hits[i];
-            if (hit.collider != null)
-            {
-                GameObject hitObject = hit.collider.gameObject;
-                if (hitObject.TryGetComponent(out Interactable interactable))
-                {
-                    if (interactable.GetPriority() > highestPriority)
-                    {
-                        highestPriorityHitIndex = i;
-                        highestPriority = interactable.GetPriority();
-                    }
-                }
-            }
-        }
-        if (highestPriorityHitIndex > -1)
-        {
-            Interact(hits[highestPriorityHitIndex].collider.gameObject);
-        }
-    }
-
-    void Interact(GameObject item)
-    {
-        if (item.TryGetComponent(out BeerGlass beerGlass))
-        {
-            TryPickUp(beerGlass);
-        }
-        else if (item.TryGetComponent(out BusTub busTub))
-        {
-            if (SkillsManager.Instance.AllowBusTubPickup)
-            {
-                TryPickUp(busTub);
-            }
-            else
-            {
-                busTub.Interact(this);
-            }
-        }
-        else if (item.TryGetComponent(out DogPoop dogPoop))
-        {
-            TryPickUp(dogPoop);
-        }
-        else if (item.TryGetComponent(out Dog dog))
-        {
-            dog.Pet();
-        }
-        else if (item.TryGetComponent(out TrashCan trashCan))
-        {
-            trashCan.ThrowAwayTrashItems(this);
-        }
-        else if (item.TryGetComponent(out BusTubTable busTubTable))
-        {
-            busTubTable.Interact(this);
-        }
-    }
-    
-    void TryPickUp(BeerGlass beerGlass)
-    {
-        if (!IsCarryingBusTub() && !SkillsManager.Instance.AllowRiskyPickup
-            && IsCarryingMaxGlassware())
-        {
-            AlertControl.Instance.ShowShortAlert(
-                "Already carrying " + SkillsManager.Instance.MaxGlasses + " glasses.");
-            return;
-        }
-        if (IsCarryingBusTub() && NumGlasses >= BusTub.MaxGlassware)
-        {
-            AlertControl.Instance.ShowShortAlert("This bus tub can't hold any more glasses.");
-            return;
-        }
-        if (beerGlass.PickUp(this))
-        {
-            if (IsCarryingBusTub())
-            {
-                ChangeBusTubGlasswareCount(1);
-                Actions.OnGlasswareCleared(1);
-            }
-            else
-            {
-                ChangeGlasses(1);
-            }
-        }
-    }
-
-    void TryPickUp(BusTub busTub)
-    {
-        if (busTub.PickUp(this))
-        {
-            ChangeBusTubGlasswareCount(busTub.TotalGlassware);
-        }
-    }
-
-    void TryPickUp(DogPoop dogPoop)
-    {
-        if (dogPoop.PickUp(this))
-        {
-            ChangePoopCount(1);
-        }
-    }
-    
-    public void ChangeGlasses(int amount)
-    {
-        if (SkillsManager.Instance.AllowRiskyPickup &&
-            IsCarryingMaxGlassware() &&
-            MaybeDropGlassware())
-        {
-            // TODO: Keep track of glasses broken.
-            NumGlasses = 0;
-            SFXManager.Instance.PlayGlassBreaking();
-            AlertControl.Instance.ShowShortAlert("Dropped all glasses!");
-        }
-        else
-        {
-            NumGlasses += amount;
-            if (SkillsManager.Instance.AllowRiskyPickup &&
-                NumGlasses == SkillsManager.Instance.MaxGlasses)
-            {
-                AlertControl.Instance.ShowLongAlert(
-                    "WARNING: Trying to carry more glasses may result in dropping them.");
-            }
-        }
+        NumGlasses = amount;
         NumGlasses = Mathf.Clamp(NumGlasses, 0, int.MaxValue);
         Actions.OnGlasswareChanged(NumGlasses);
     }
 
-    bool MaybeDropGlassware()
+    public void ChangeNumGlasses(int amount)
     {
-        int percentChanceOfDropping = 5 + (8 * (NumGlasses - SkillsManager.Instance.MaxGlasses));
-        return Random.Range(1, 101) <= percentChanceOfDropping;
+        SetNumGlasses(NumGlasses + amount);
     }
 
     public void ChangeBusTubGlasswareCount(int amount)
@@ -175,26 +47,6 @@ public class PlayerInventory : MonoBehaviour
         Actions.OnPoopCountChanged(NumPoops);
     }
 
-    public bool IsCarryingBusTub()
-    {
-        return NumBusTubs > 0;
-    }
-
-    public bool IsCarryingGlassware()
-    {
-        return NumGlasses > 0;
-    }
-
-    public bool IsCarryingPoop()
-    {
-        return NumPoops > 0;
-    }
-
-    public bool IsCarryingMaxGlassware()
-    {
-        return NumGlasses >= SkillsManager.Instance.MaxGlasses;
-    }
-
     // Dropping off carried glassware into a bus tub.
     public int ClearGlassware(int amount)
     {
@@ -202,11 +54,6 @@ public class PlayerInventory : MonoBehaviour
         NumGlasses -= amount;
         Actions.OnGlasswareChanged(NumGlasses);
         return glassesCleared;
-    }
-
-    public int ClearAllGlassware()
-    {
-        return ClearGlassware(NumGlasses);
     }
 
     public int ClearPoops()
@@ -258,8 +105,27 @@ public class PlayerInventory : MonoBehaviour
         }
 
         NumBusTubs = 0;
-        NumGlasses = 0;
-        Actions.OnGlasswareChanged(0);
+        SetNumGlasses(0);
+    }
+
+    public bool IsCarryingBusTub()
+    {
+        return NumBusTubs > 0;
+    }
+
+    public bool IsCarryingGlassware()
+    {
+        return NumGlasses > 0;
+    }
+
+    public bool IsCarryingPoop()
+    {
+        return NumPoops > 0;
+    }
+
+    public bool IsCarryingMaxGlassware()
+    {
+        return NumGlasses >= SkillsManager.Instance.MaxGlasses;
     }
 
     void ResetState()
